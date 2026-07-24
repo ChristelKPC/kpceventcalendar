@@ -7,45 +7,34 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f8; color: #160D3D; min-height: 100vh; }
-
-  /* HEADER */
   .header { background: linear-gradient(135deg, #160D3D 0%, #1E1255 60%, #2a1a6e 100%); padding: 24px 32px 20px; }
   .header-inner { max-width: 1200px; margin: 0 auto; }
   .header-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
   .logo-zone { display: flex; align-items: center; gap: 16px; }
-  .logo-img { height: 44px; width: auto; }
-  .header-texts {}
+  .logo-img { height: 44px; width: auto; mix-blend-mode: screen; }
   .header-title { font-size: 20px; font-weight: 700; color: #fff; }
   .header-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 2px; }
   .header-count { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 6px 16px; font-size: 13px; color: rgba(255,255,255,0.85); white-space: nowrap; align-self: flex-start; }
-
-  /* PROGRESS BAR */
   .progress-zone { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
   .progress-label { font-size: 12px; color: rgba(255,255,255,0.6); white-space: nowrap; }
   .progress-label strong { color: #fff; }
   .progress-track { flex: 1; min-width: 160px; height: 6px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(to right, #FF9604, #FF5201); border-radius: 10px; transition: width .4s; }
+  .progress-fill { height: 100%; background: linear-gradient(to right, #FF9604, #FF5201); border-radius: 10px; }
   .progress-pct { font-size: 12px; color: #FF9604; font-weight: 700; white-space: nowrap; }
-  .btn-today { background: rgba(255,82,1,0.85); color: #fff; border: none; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background .15s; }
+  .btn-today { background: rgba(255,82,1,0.85); color: #fff; border: none; border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
   .btn-today:hover { background: #FF5201; }
-
-  /* FILTERS */
   .filters-bar { background: #fff; border-bottom: 1px solid #e8e6f0; padding: 12px 32px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(22,13,61,0.06); }
   .filters-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .filter-select { padding: 7px 30px 7px 12px; border-radius: 8px; border: 1.5px solid #e0dded; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239090aa' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center; appearance: none; font-size: 13px; font-weight: 500; color: #160D3D; cursor: pointer; outline: none; transition: border-color .15s; min-width: 150px; }
+  .filter-select { padding: 7px 30px 7px 12px; border-radius: 8px; border: 1.5px solid #e0dded; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239090aa' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center; appearance: none; font-size: 13px; font-weight: 500; color: #160D3D; cursor: pointer; outline: none; min-width: 150px; }
   .filter-select:hover, .filter-select:focus { border-color: #FF5201; }
   .filter-select.active { border-color: #160D3D; background-color: #f5f4fb; }
-  .filter-btn-confirm { padding: 7px 14px; border-radius: 8px; border: 1.5px solid #fde68a; background: #FFF8E1; font-size: 13px; font-weight: 500; color: #b45309; cursor: pointer; white-space: nowrap; transition: all .15s; }
-  .filter-btn-confirm:hover, .filter-btn-confirm.active { background: #b45309; color: #fff; border-color: #b45309; }
+  .filter-btn-confirm { padding: 7px 14px; border-radius: 8px; border: 1.5px solid #fde68a; background: #FFF8E1; font-size: 13px; font-weight: 500; color: #b45309; cursor: pointer; white-space: nowrap; }
+  .filter-btn-confirm.active { background: #b45309; color: #fff; border-color: #b45309; }
   .search-wrap { position: relative; flex: 1; min-width: 180px; }
   .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
-  .search-box { width: 100%; padding: 7px 12px 7px 30px; border-radius: 8px; border: 1.5px solid #e0dded; font-size: 13px; color: #160D3D; outline: none; background: #fff; transition: border-color .15s; }
+  .search-box { width: 100%; padding: 7px 12px 7px 30px; border-radius: 8px; border: 1.5px solid #e0dded; font-size: 13px; color: #160D3D; outline: none; background: #fff; }
   .search-box:focus { border-color: #FF5201; }
-
-  /* CONTENT */
   .content { max-width: 1200px; margin: 0 auto; padding: 24px 32px 48px; }
-
-  /* ANNUAL STATS */
   .annual-stats { background: #fff; border: 1.5px solid #edeaf5; border-radius: 12px; padding: 14px 20px; margin-bottom: 24px; }
   .annual-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; font-weight: 600; margin-bottom: 10px; }
   .stats-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
@@ -53,17 +42,13 @@
   .stat-num { font-size: 22px; font-weight: 800; color: #160D3D; }
   .stat-lbl { font-size: 11px; color: #9090b0; text-transform: uppercase; letter-spacing: 0.8px; }
   .stat-divider { width: 1px; height: 32px; background: #edeaf5; }
-
-  /* MONTH SECTIONS */
   .month-section { margin-bottom: 32px; }
   .month-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
   .month-label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #FF5201; white-space: nowrap; }
   .month-line { flex: 1; height: 1px; background: linear-gradient(to right, #e8e6f0, transparent); }
   .month-count { font-size: 11px; color: #aaa; background: #f0eef8; border-radius: 10px; padding: 2px 8px; }
   .month-past .month-label { color: #bbb; }
-  .badge-current { font-size: 10px; background: #FF5201; color: #fff; border-radius: 8px; padding: 2px 7px; margin-left: 6px; font-weight: 600; letter-spacing: 0; }
-
-  /* CARDS */
+  .badge-current { font-size: 10px; background: #FF5201; color: #fff; border-radius: 8px; padding: 2px 7px; margin-left: 6px; font-weight: 600; }
   .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
   .event-card { background: #fff; border-radius: 12px; border: 1.5px solid #edeaf5; padding: 18px 20px; transition: all .2s; }
   .event-card:hover { box-shadow: 0 6px 24px rgba(22,13,61,0.1); border-color: #d0caec; transform: translateY(-1px); }
@@ -80,30 +65,25 @@
   .badge-editeur { font-size: 11px; font-weight: 600; background: #1E1255; color: #FF9604; border-radius: 6px; padding: 3px 8px; }
   .badge-webinaire { font-size: 11px; font-weight: 500; background: #EDE9F8; color: #4A3A9B; border-radius: 6px; padding: 3px 8px; }
   .badge-presentiel { font-size: 11px; font-weight: 500; background: #FFF0E6; color: #B03A00; border-radius: 6px; padding: 3px 8px; }
-  .sf-code { font-size: 11px; color: #9090b0; background: #f8f7fb; border-radius: 6px; padding: 4px 8px; font-family: 'SF Mono', 'Fira Code', monospace; }
-
+  .sf-code { font-size: 11px; color: #9090b0; background: #f8f7fb; border-radius: 6px; padding: 4px 8px; font-family: monospace; }
   .empty-state { text-align: center; padding: 60px 20px; }
   .empty-state h3 { font-size: 17px; margin-bottom: 8px; color: #7a6aaa; }
   .empty-state p { color: #aaa; font-size: 13px; }
-
   @media (max-width: 640px) {
     .header { padding: 18px 16px 16px; }
     .filters-bar { padding: 10px 16px; }
     .content { padding: 16px 16px 48px; }
     .cards-grid { grid-template-columns: 1fr; }
-    .filter-select { min-width: 120px; }
-    .progress-track { min-width: 80px; }
   }
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-inner">
     <div class="header-top">
       <div class="logo-zone">
-        <img class="logo-img" style="mix-blend-mode:screen;" src="data:image/png;base64,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" alt="KPC">
-        <div class="header-texts">
+        <img class="logo-img" src="data:image/png;base64,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" alt="KPC">
+        <div>
           <div class="header-title">Calendrier Événements 2026</div>
           <div class="header-sub">KPC Group — Événements business externes</div>
         </div>
@@ -114,21 +94,16 @@
       </div>
     </div>
     <div class="progress-zone">
-      <div class="progress-label" id="progressLabel">Chargement…</div>
+      <div class="progress-label" id="progressLabel"></div>
       <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
       <div class="progress-pct" id="progressPct"></div>
     </div>
   </div>
 </div>
-
 <div class="filters-bar">
   <div class="filters-inner">
-    <select class="filter-select" id="filterMonth" onchange="renderCalendar()">
-      <option value="all">Tous les mois</option>
-    </select>
-    <select class="filter-select" id="filterEditeur" onchange="renderCalendar()">
-      <option value="all">Tous les éditeurs</option>
-    </select>
+    <select class="filter-select" id="filterMonth" onchange="renderCalendar()"><option value="all">Tous les mois</option></select>
+    <select class="filter-select" id="filterEditeur" onchange="renderCalendar()"><option value="all">Tous les éditeurs</option></select>
     <select class="filter-select" id="filterFormat" onchange="renderCalendar()">
       <option value="all">Tous formats</option>
       <option value="Webinaire">Webinaire</option>
@@ -146,12 +121,10 @@
     </div>
   </div>
 </div>
-
 <div class="content">
   <div class="annual-stats" id="annualStats"></div>
   <div id="calendar"></div>
 </div>
-
 <script>
 const EDITORS = {
   '0dc881c363874d118f886734d098c32e': 'DBT',
@@ -169,7 +142,7 @@ const EDITORS = {
   '851dd8ebc63d473aad4dd0d1eeaf5639': 'Datagalaxy',
   'd7e939a5435442b98f98de5780a2cb93': 'Onestream',
   'ef93e9497ea146d98114803c96fc8980': 'SAP',
-  'efa9722ae5b8439ea4b3165ebbd793db': 'Snowflake',
+  'efa9722ae5b8439ea4b3165ebbd793db': 'Snowflake'
 };
 const WARN_STRINGS = ['date a confirmer','date à confirmer','date à définir','date à identifier','date à voir','idée a voir','??'];
 const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
@@ -177,91 +150,28 @@ const DAYS_FR = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samed
 const TODAY = new Date();
 const CURRENT_MONTH_KEY = TODAY.getFullYear() + '-' + String(TODAY.getMonth()+1).padStart(2,'0');
 
-const RAW_EVENTS = [
-  { nom: "INFORMATICA - Webinar Informatica data Observability", date: "2026-02-19", format: "Webinaire", editeurs_ids: ["15481c5bb54280feb4dfd61d096e912a"], statut: "Terminé", codeSF: "2026-KPC-WEBINAR-INORMATICA-0219" },
-  { nom: "Webinar CPM Express Onestream", date: "2026-03-12", format: "Webinaire", editeurs_ids: ["d7e939a5435442b98f98de5780a2cb93"], statut: "Terminé", codeSF: "2026-KPC-WEBINAIRE-ONESTREAM-0312" },
-  { nom: "Event SAP / SNOW / KPC (SAP CONNECT 19/03)", date: "2026-03-19", format: "Présentiel", editeurs_ids: ["efa9722ae5b8439ea4b3165ebbd793db","ef93e9497ea146d98114803c96fc8980"], statut: "Terminé", codeSF: "2026-KPC-SAP-CONNECT-0319" },
-  { nom: "Dataquitaine 2026", date: "2026-03-19", format: "Présentiel", editeurs_ids: ["16281c5bb54280ebba7cce266e16e9d2"], statut: "Terminé", codeSF: "" },
-  { nom: "SNOWFLAKE - D4B PARIS", date: "2026-04-14", format: "Présentiel", editeurs_ids: ["efa9722ae5b8439ea4b3165ebbd793db"], statut: "Terminé", codeSF: "2026-KPC-D4B-SNOWFLAKE-0414" },
-  { nom: "Event SAP / SNOW Lyon", date: "2026-04-23", format: "Présentiel", editeurs_ids: ["efa9722ae5b8439ea4b3165ebbd793db","ef93e9497ea146d98114803c96fc8980"], statut: "Terminé", codeSF: "2026-KPC-SAP-SNOWFLAKE-LYON-0423" },
-  { nom: "DBT - Webinar Datagouvernance", date: "2026-05-26", format: "Webinaire", editeurs_ids: ["0dc881c363874d118f886734d098c32e"], statut: "Actif", codeSF: "KPC-DBT-DATAGOUV-260526" },
-  { nom: "Cultive Ta data Montpellier", date: "2026-05-28", format: "Présentiel", editeurs_ids: ["16281c5bb54280ebba7cce266e16e9d2"], statut: "Terminé", codeSF: "2026-KPC-CTD-260528" },
-  { nom: "SNOWFLAKE - SUMMIT San Francisco", date: "2026-06-01", format: "Présentiel", editeurs_ids: ["efa9722ae5b8439ea4b3165ebbd793db"], statut: "Terminé", codeSF: "" },
-  { nom: "OS WORLD TOUR PARIS", date: "2026-06-02", format: "Présentiel", editeurs_ids: ["d7e939a5435442b98f98de5780a2cb93"], statut: "Terminé", codeSF: "" },
-  { nom: "Kshuttle Connect 2026 - Paris", date: "2026-06-04", format: "Présentiel", editeurs_ids: ["29c81c5bb54280f6ac04d2dfa4431364"], statut: "Terminé", codeSF: "" },
-  { nom: "DATAGALAXY - Event atelier Jeux de carte - Paris + Rex BEL", date: "2026-06-09", format: "Présentiel", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Terminé", codeSF: "2026-KPC-ATG-PARIS-0409" },
-  { nom: "DATAGALAXY - Summit - Paris", date: "2026-06-11", format: "Présentiel", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Terminé", codeSF: "" },
-  { nom: "DATAGALAXY : webinar #1 - Produit Portfolio", date: "2026-06-16", format: "Webinaire", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "2026-KPC-DATAGALAXY-WEBINAR-PORTEFOLIO-0616" },
-  { nom: "SNOWFLAKE / COALESCE / FIVETRAN / OMNI - Event - Paris", date: "2026-06-23", format: "Présentiel", editeurs_ids: ["28581c5bb54280f29e77fd168c796361","efa9722ae5b8439ea4b3165ebbd793db","23481c5bb54280d49df2c774e0ca8723","33c81c5bb54280dca47fcadd00160171"], statut: "Actif", codeSF: "2026-KPC-EVENT-FRDTLA-2026-0623" },
-  { nom: "DATAGALAXY - Event REX Apicil - Lyon", date: "2026-06-25", format: "Présentiel", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "2026-DATAGALAXY-EVENT-REX-APCIL-0623" },
-  { nom: "Republic Deauville", date: "2026-06-29", format: "Présentiel", editeurs_ids: ["16281c5bb54280ebba7cce266e16e9d2"], statut: "Actif", codeSF: "2026-KPC-REPUBLIK-DEAUVILLE-0629" },
-  { nom: "ORACLE - Webinar Migration Essbase - rex CIS date à définir", date: "2026-06-30", format: "Webinaire", editeurs_ids: ["63ed092fa45e4cbda685132d00ec80c9"], statut: "Actif", codeSF: "2026-KPC-ORACLE-WEBINAIRE-0630" },
-  { nom: "SUG Lyon 01/07", date: "2026-07-01", format: "Présentiel", editeurs_ids: ["efa9722ae5b8439ea4b3165ebbd793db"], statut: "Actif", codeSF: "" },
-  { nom: "ORACLE - Webinar Migration Essbase - Rex Compass - date à confirmer", date: "2026-09-08", format: "Webinaire", editeurs_ids: ["63ed092fa45e4cbda685132d00ec80c9"], statut: "Actif", codeSF: "2026-KPC-ORACLE-WEBINAIRE-0630" },
-  { nom: "DATAGALAXY : webinar #1 - Solva 2 - Date à définir", date: "2026-09-15", format: "Webinaire", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "" },
-  { nom: "SALON DE LA DATA NANTES + informatica", date: "2026-09-17", format: "Présentiel", editeurs_ids: ["16281c5bb54280ebba7cce266e16e9d2","15481c5bb54280feb4dfd61d096e912a"], statut: "Actif", codeSF: "2026-KPC-SALON-DATA-NANTES-0917" },
-  { nom: "DATAGALAXY - Atelier Jeu Datagouv' - Aix-Marseille - DATE A CONFIRMER", date: "2026-09-22", format: "Présentiel", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "" },
-  { nom: "IMAGINO - Petit déjeuner Rex Hyundai - Paris - date à confirmer", date: "2026-09-22", format: "Présentiel", editeurs_ids: ["120fe43461bc445c97c7223aca037066"], statut: "Actif", codeSF: "2026-KPC-IMAGINO-HYUNDAI-0702" },
-  { nom: "DATAGALAXY : webinar #3 - Success story ARNAL - DATE A CONFIRMER", date: "2026-09-24", format: "Webinaire", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "" },
-  { nom: "Pigment Catalyst Paris", date: "2026-10-06", format: "Présentiel", editeurs_ids: ["15481c5bb54280148282e0c5f5bb58c6"], statut: "Actif", codeSF: "" },
-  { nom: "SAP - Convention USF 26 - STRASBOURG", date: "2026-10-14", format: "Présentiel", editeurs_ids: ["ef93e9497ea146d98114803c96fc8980"], statut: "Actif", codeSF: "2026-KPC-USF-STRASBOURG-1014" },
-  { nom: "SNOWFLAKE - SWT - Paris", date: "2026-10-15", format: "Présentiel", editeurs_ids: ["efa9722ae5b8439ea4b3165ebbd793db"], statut: "Actif", codeSF: "" },
-  { nom: "DATAGALAXY : webinar #4 - module gouv DG + SnowFlake s2 - DATE A CONFIRMER", date: "2026-10-29", format: "Webinaire", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "" },
-  { nom: "DATAGALAXY - Atelier Jeu Datagouv' - TOULOUSE - DATE A CONFIRMER", date: "2026-10-30", format: "Présentiel", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "" },
-  { nom: "DATAGALAXY : webinar #2 - souveraineté On Prem - DATE A CONFIRMER", date: "2026-10-30", format: "Webinaire", editeurs_ids: ["851dd8ebc63d473aad4dd0d1eeaf5639"], statut: "Actif", codeSF: "" },
-  { nom: "PARTNER AFTERWORKS - Paris - Date à confirmer", date: "2026-11-12", format: "Présentiel", editeurs_ids: ["16281c5bb54280ebba7cce266e16e9d2"], statut: "Actif", codeSF: "" },
-  { nom: "ADIRA LYON - Date à confirmer", date: "2026-12-14", format: "Présentiel", editeurs_ids: ["16281c5bb54280ebba7cce266e16e9d2"], statut: "Actif", codeSF: "" }
-];
+const RAW_EVENTS = [{"nom": "INFORMATICA - Webinar Informatica data Observability", "date": "2026-02-19", "format": "Webinaire", "editeurs_ids": ["15481c5bb54280feb4dfd61d096e912a"], "statut": "Terminé", "codeSF": "2026-KPC-WEBINAR-INORMATICA-0219"}, {"nom": "Webinar CPM Express Onestream", "date": "2026-03-12", "format": "Webinaire", "editeurs_ids": ["d7e939a5435442b98f98de5780a2cb93"], "statut": "Terminé", "codeSF": "2026-KPC-WEBINAIRE-ONESTREAM-0312"}, {"nom": "Event SAP / SNOW / KPC (SAP CONNECT 19/03)", "date": "2026-03-19", "format": "Présentiel", "editeurs_ids": ["efa9722ae5b8439ea4b3165ebbd793db", "ef93e9497ea146d98114803c96fc8980"], "statut": "Terminé", "codeSF": "2026-KPC-SAP-CONNECT-0319"}, {"nom": "Dataquitaine 2026", "date": "2026-03-19", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": ""}, {"nom": "SNOWFLAKE - D4B PARIS", "date": "2026-04-14", "format": "Présentiel", "editeurs_ids": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": "2026-KPC-D4B-SNOWFLAKE-0414"}, {"nom": "Event SAP / SNOW Lyon", "date": "2026-04-23", "format": "Présentiel", "editeurs_ids": ["efa9722ae5b8439ea4b3165ebbd793db", "ef93e9497ea146d98114803c96fc8980"], "statut": "Terminé", "codeSF": "2026-KPC-SAP-SNOWFLAKE-LYON-0423"}, {"nom": "DBT - Webinar Datagouvernance", "date": "2026-05-26", "format": "Webinaire", "editeurs_ids": ["0dc881c363874d118f886734d098c32e"], "statut": "Terminé", "codeSF": "KPC-DBT-DATAGOUV-260526"}, {"nom": "Cultive Ta data Montpellier", "date": "2026-05-28", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": "2026-KPC-CTD-260528"}, {"nom": "SNOWFLAKE - SUMMIT San Francisco", "date": "2026-06-01", "format": "Présentiel", "editeurs_ids": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": ""}, {"nom": "OS WORLD TOUR PARIS", "date": "2026-06-02", "format": "Présentiel", "editeurs_ids": ["d7e939a5435442b98f98de5780a2cb93"], "statut": "Terminé", "codeSF": ""}, {"nom": "Kshuttle Connect 2026 - Paris", "date": "2026-06-04", "format": "Présentiel", "editeurs_ids": ["29c81c5bb54280f6ac04d2dfa4431364"], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY - Event atelier Jeux de carte - Paris + Rex BEL", "date": "2026-06-09", "format": "Présentiel", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-KPC-ATG-PARIS-0409"}, {"nom": "DATAGALAXY - Summit - Paris", "date": "2026-06-11", "format": "Présentiel", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #1 - Produit Portfolio", "date": "2026-06-16", "format": "Webinaire", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-KPC-DATAGALAXY-WEBINAR-PORTEFOLIO-0616"}, {"nom": "SNOWFLAKE / COALESCE / FIVETRAN / OMNI - Event - Paris", "date": "2026-06-23", "format": "Présentiel", "editeurs_ids": ["28581c5bb54280f29e77fd168c796361", "efa9722ae5b8439ea4b3165ebbd793db", "23481c5bb54280d49df2c774e0ca8723", "33c81c5bb54280dca47fcadd00160171"], "statut": "Terminé", "codeSF": "2026-KPC-EVENT-FRDTLA-2026-0623"}, {"nom": "DATAGALAXY - Event REX Apicil - Lyon", "date": "2026-06-25", "format": "Présentiel", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-DATAGALAXY-EVENT-REX-APCIL-0623"}, {"nom": "Republic Deauville", "date": "2026-06-29", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": "2026-KPC-REPUBLIK-DEAUVILLE-0629"}, {"nom": "SUG Lyon 01/07", "date": "2026-07-01", "format": "Présentiel", "editeurs_ids": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": ""}, {"nom": "ORACLE - Webinar Migration Essbase - rex CIS date à définir", "date": "2026-09-30", "format": "Webinaire", "editeurs_ids": ["63ed092fa45e4cbda685132d00ec80c9"], "statut": "Actif", "codeSF": "2026-KPC-ORACLE-WEBINAIRE-0630"}, {"nom": "DATAGALAXY : webinar #1 - Solva 2 - Date à définir", "date": "2026-09-15", "format": "Webinaire", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "SALON DE LA DATA NANTES + informatica", "date": "2026-09-17", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2", "15481c5bb54280feb4dfd61d096e912a"], "statut": "Actif", "codeSF": "2026-KPC-SALON-DATA-NANTES-0922"}, {"nom": "DATAGALAXY - Atelier Jeu Datagouv' - Aix-Marseille - DATE A CONFIRMER", "date": "2026-09-22", "format": "Présentiel", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #3 - Success story ARNAL - DATE A CONFIRMER", "date": "2026-09-24", "format": "Webinaire", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "SEMARCHY summit", "date": "2026-09-24", "format": "Présentiel", "editeurs_ids": ["435bbea97c0f4ea083918ceaa4805d36"], "statut": "Actif", "codeSF": "2026-KPC-SEMARCHY-0924"}, {"nom": "Pigment Catalyst Paris", "date": "2026-10-06", "format": "Présentiel", "editeurs_ids": ["15481c5bb54280148282e0c5f5bb58c6"], "statut": "Actif", "codeSF": ""}, {"nom": "SALESFORCE Diner vip - Go live Restalliance - Lyon - date à confirmer", "date": "2026-10-06", "format": "Présentiel", "editeurs_ids": ["1d99cbf8391349aa9c91358ec9bac35e"], "statut": "Actif", "codeSF": ""}, {"nom": "SAP - Convention USF 26 - STRASBOURG", "date": "2026-10-14", "format": "Présentiel", "editeurs_ids": ["ef93e9497ea146d98114803c96fc8980"], "statut": "Actif", "codeSF": "2026-KPC-USF-STRASBOURG-1014"}, {"nom": "SNOWFLAKE - SWT - Paris", "date": "2026-10-15", "format": "Présentiel", "editeurs_ids": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Actif", "codeSF": "2026-KPC-SNOWFLAKE-SWTPARIS-1015"}, {"nom": "DATAGALAXY : webinar #4 - module gouv DG + SnowFlake s2 - DATE A CONFIRMER", "date": "2026-10-29", "format": "Webinaire", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "DATAGALAXY - Atelier Jeu Datagouv' - TOULOUSE - DATE A CONFIRMER", "date": "2026-10-30", "format": "Présentiel", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #2 - souveraineté On Prem - DATE A CONFIRMER", "date": "2026-10-30", "format": "Webinaire", "editeurs_ids": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "PARTNER AFTERWORKS - Paris - Date à confirmer", "date": "2026-11-12", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}, {"nom": "Salon adopt IA Paris 3&4 dec", "date": "2026-12-03", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": "2026-KPC-ADOPTIA-1203"}, {"nom": "ADIRA LYON - Date à confirmer", "date": "2026-12-14", "format": "Présentiel", "editeurs_ids": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}];
 
-function resolveEditors(ids) {
-  return [...new Set(ids.map(id => EDITORS[id] || '?'))];
-}
-function hasDateWarning(nom) {
-  const l = nom.toLowerCase();
-  return WARN_STRINGS.some(s => l.includes(s));
-}
-function cleanSF(code) {
-  if (!code) return '';
-  const c = code.trim();
-  if (['sans objet','Sans Objet','sans Objet'].includes(c.toLowerCase())) return '';
-  return c;
-}
-function getMonthKey(dateStr) {
-  return dateStr.substring(0,7);
-}
-function getMonthLabel(key) {
-  const [y,m] = key.split('-');
-  return MONTHS_FR[parseInt(m)-1] + ' ' + y;
-}
-function formatDateFull(dateStr) {
-  const d = new Date(dateStr + 'T00:00:00');
-  return DAYS_FR[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_FR[d.getMonth()] + ' ' + d.getFullYear();
-}
+function resolveEditors(ids) { return [...new Set(ids.map(id => EDITORS[id] || '?'))]; }
+function hasWarn(nom) { const l = nom.toLowerCase(); return WARN_STRINGS.some(s => l.includes(s)); }
+function cleanSF(c) { if (!c) return ''; const t = c.trim(); if (['sans objet','sans Objet','Sans Objet','Sans objet'].includes(t)) return ''; return t; }
+function monthKey(d) { return d.substring(0,7); }
+function monthLabel(k) { const [y,m] = k.split('-'); return MONTHS_FR[parseInt(m)-1] + ' ' + y; }
+function dateFullFR(d) { const dt = new Date(d+'T00:00:00'); return DAYS_FR[dt.getDay()]+' '+dt.getDate()+' '+MONTHS_FR[dt.getMonth()]+' '+dt.getFullYear(); }
 
-const EVENTS = RAW_EVENTS.map(e => ({
-  ...e,
-  editeurs: resolveEditors(e.editeurs_ids),
-  dateObj: new Date(e.date + 'T00:00:00'),
-  monthKey: getMonthKey(e.date),
-  dateWarning: hasDateWarning(e.nom),
-  codeSFClean: cleanSF(e.codeSF)
-})).sort((a,b) => a.dateObj - b.dateObj);
+const EVENTS = RAW_EVENTS.map(e => ({...e, editeurs: resolveEditors(e.editeurs_ids), dateObj: new Date(e.date+'T00:00:00'), monthKey: monthKey(e.date), warn: hasWarn(e.nom), sf: cleanSF(e.codeSF)})).sort((a,b)=>a.dateObj-b.dateObj);
 
-// Annual stats (fixed, all year)
 const ANN_TOTAL = EVENTS.length;
-const ANN_TERMINE = EVENTS.filter(e => e.statut === 'Terminé').length;
-const ANN_ACTIF = EVENTS.filter(e => e.statut !== 'Terminé').length;
-const ANN_WEB = EVENTS.filter(e => e.format === 'Webinaire').length;
-const ANN_PRES = EVENTS.filter(e => e.format === 'Présentiel').length;
-const ANN_WARN = EVENTS.filter(e => e.dateWarning).length;
-const PROGRESS_PCT = Math.round((ANN_TERMINE / ANN_TOTAL) * 100);
+const ANN_TERMINE = EVENTS.filter(e=>e.statut==='Terminé').length;
+const ANN_ACTIF = EVENTS.filter(e=>e.statut!=='Terminé').length;
+const ANN_WEB = EVENTS.filter(e=>e.format==='Webinaire').length;
+const ANN_PRES = EVENTS.filter(e=>e.format==='Présentiel').length;
+const ANN_WARN = EVENTS.filter(e=>e.warn).length;
+const PCT = Math.round((ANN_TERMINE/ANN_TOTAL)*100);
 
-// Set header progress
-document.getElementById('progressLabel').innerHTML = '<strong>' + ANN_TERMINE + ' / ' + ANN_TOTAL + '</strong> événements réalisés en 2026';
-document.getElementById('progressFill').style.width = PROGRESS_PCT + '%';
-document.getElementById('progressPct').textContent = PROGRESS_PCT + '%';
-
-// Annual stats block
+document.getElementById('progressLabel').innerHTML = '<strong>'+ANN_TERMINE+' / '+ANN_TOTAL+'</strong> événements réalisés en 2026';
+document.getElementById('progressFill').style.width = PCT+'%';
+document.getElementById('progressPct').textContent = PCT+'%';
 document.getElementById('annualStats').innerHTML = `
   <div class="annual-label">Récapitulatif annuel 2026</div>
   <div class="stats-row">
@@ -275,139 +185,77 @@ document.getElementById('annualStats').innerHTML = `
     <div class="stat-divider"></div>
     <div class="stat-item"><div class="stat-num" style="color:#B03A00">${ANN_PRES}</div><div class="stat-lbl">Présentiel</div></div>
     ${ANN_WARN > 0 ? `<div class="stat-divider"></div><div class="stat-item"><div class="stat-num" style="color:#b45309">⚠ ${ANN_WARN}</div><div class="stat-lbl">À confirmer</div></div>` : ''}
-  </div>
-`;
+  </div>`;
 
-// Dropdowns init
 function initDropdowns() {
-  const monthSel = document.getElementById('filterMonth');
-  [...new Set(EVENTS.map(e => e.monthKey))].sort().forEach(mk => {
-    const opt = document.createElement('option');
-    opt.value = mk; opt.textContent = getMonthLabel(mk);
-    monthSel.appendChild(opt);
-  });
-  const editSel = document.getElementById('filterEditeur');
-  [...new Set(EVENTS.flatMap(e => e.editeurs))].filter(ed => ed !== 'Sans éditeur' && ed !== '?').sort().forEach(ed => {
-    const opt = document.createElement('option');
-    opt.value = ed; opt.textContent = ed;
-    editSel.appendChild(opt);
-  });
+  const ms = document.getElementById('filterMonth');
+  [...new Set(EVENTS.map(e=>e.monthKey))].sort().forEach(mk=>{ const o=document.createElement('option'); o.value=mk; o.textContent=monthLabel(mk); ms.appendChild(o); });
+  const es = document.getElementById('filterEditeur');
+  [...new Set(EVENTS.flatMap(e=>e.editeurs))].filter(ed=>ed!=='Sans éditeur'&&ed!=='?').sort().forEach(ed=>{ const o=document.createElement('option'); o.value=ed; o.textContent=ed; es.appendChild(o); });
 }
 
 let filterConfirm = false;
-function toggleConfirm() {
-  filterConfirm = !filterConfirm;
-  document.getElementById('btnConfirm').classList.toggle('active', filterConfirm);
-  renderCalendar();
-}
+function toggleConfirm() { filterConfirm=!filterConfirm; document.getElementById('btnConfirm').classList.toggle('active',filterConfirm); renderCalendar(); }
 
 function getFilters() {
-  return {
-    month: document.getElementById('filterMonth').value,
-    editeur: document.getElementById('filterEditeur').value,
-    format: document.getElementById('filterFormat').value,
-    statut: document.getElementById('filterStatut').value,
-    q: document.getElementById('searchBox').value.toLowerCase().trim(),
-    confirm: filterConfirm
-  };
+  return { month: document.getElementById('filterMonth').value, editeur: document.getElementById('filterEditeur').value, format: document.getElementById('filterFormat').value, statut: document.getElementById('filterStatut').value, q: document.getElementById('searchBox').value.toLowerCase().trim(), confirm: filterConfirm };
 }
 
-function getFilteredEvents(f) {
-  // Show all months if any filter is active, else hide past months
-  const anyActive = f.month !== 'all' || f.editeur !== 'all' || f.format !== 'all' || f.statut !== 'all' || f.q !== '' || f.confirm;
+function getFiltered(f) {
+  const anyActive = f.month!=='all'||f.editeur!=='all'||f.format!=='all'||f.statut!=='all'||f.q!==''||f.confirm;
   return EVENTS.filter(e => {
     if (!anyActive && e.monthKey < CURRENT_MONTH_KEY) return false;
-    if (f.month !== 'all' && e.monthKey !== f.month) return false;
-    if (f.editeur !== 'all' && !e.editeurs.includes(f.editeur)) return false;
-    if (f.format !== 'all' && e.format !== f.format) return false;
-    if (f.statut === 'actif' && e.statut === 'Terminé') return false;
-    if (f.statut === 'Terminé' && e.statut !== 'Terminé') return false;
-    if (f.confirm && !e.dateWarning) return false;
-    if (f.q) {
-      const h = [e.nom, ...e.editeurs, e.codeSFClean].join(' ').toLowerCase();
-      if (!h.includes(f.q)) return false;
-    }
+    if (f.month!=='all' && e.monthKey!==f.month) return false;
+    if (f.editeur!=='all' && !e.editeurs.includes(f.editeur)) return false;
+    if (f.format!=='all' && e.format!==f.format) return false;
+    if (f.statut==='actif' && e.statut==='Terminé') return false;
+    if (f.statut==='Terminé' && e.statut!=='Terminé') return false;
+    if (f.confirm && !e.warn) return false;
+    if (f.q) { const h=[e.nom,...e.editeurs,e.sf].join(' ').toLowerCase(); if (!h.includes(f.q)) return false; }
     return true;
   });
 }
 
 function renderCalendar() {
   const f = getFilters();
-  const filtered = getFilteredEvents(f);
-
-  document.getElementById('headerCount').textContent = filtered.length + ' événement' + (filtered.length > 1 ? 's' : '') + ' affichés';
-
-  ['filterMonth','filterEditeur','filterFormat','filterStatut'].forEach(id => {
-    document.getElementById(id).classList.toggle('active', document.getElementById(id).value !== 'all');
-  });
-
+  const filtered = getFiltered(f);
+  document.getElementById('headerCount').textContent = filtered.length+' événement'+(filtered.length>1?'s':'')+' affichés';
+  ['filterMonth','filterEditeur','filterFormat','filterStatut'].forEach(id=>{ document.getElementById(id).classList.toggle('active',document.getElementById(id).value!=='all'); });
   const cal = document.getElementById('calendar');
-  if (filtered.length === 0) {
-    cal.innerHTML = '<div class="empty-state"><h3>Aucun événement trouvé</h3><p>Essayez de modifier vos filtres.</p></div>';
-    return;
-  }
-
-  const byMonth = {};
-  filtered.forEach(e => {
-    if (!byMonth[e.monthKey]) byMonth[e.monthKey] = [];
-    byMonth[e.monthKey].push(e);
-  });
-
-  let html = '';
-  Object.keys(byMonth).sort().forEach(mk => {
-    const isPast = mk < CURRENT_MONTH_KEY;
-    const isCurrent = mk === CURRENT_MONTH_KEY;
-    const sectionId = 'month-' + mk;
-    html += `
-      <div class="month-section${isPast ? ' month-past' : ''}" id="${sectionId}">
-        <div class="month-header">
-          <div class="month-label">${getMonthLabel(mk)}${isCurrent ? '<span class="badge-current">EN COURS</span>' : ''}</div>
-          <div class="month-line"></div>
-          <div class="month-count">${byMonth[mk].length}</div>
-        </div>
-        <div class="cards-grid">
-          ${byMonth[mk].map(e => renderCard(e)).join('')}
-        </div>
+  if (!filtered.length) { cal.innerHTML='<div class="empty-state"><h3>Aucun événement trouvé</h3><p>Essayez de modifier vos filtres.</p></div>'; return; }
+  const byMonth={};
+  filtered.forEach(e=>{ if(!byMonth[e.monthKey]) byMonth[e.monthKey]=[]; byMonth[e.monthKey].push(e); });
+  let html='';
+  Object.keys(byMonth).sort().forEach(mk=>{
+    const isPast=mk<CURRENT_MONTH_KEY, isCurrent=mk===CURRENT_MONTH_KEY;
+    html+=`<div class="month-section${isPast?' month-past':''}" id="month-${mk}">
+      <div class="month-header">
+        <div class="month-label">${monthLabel(mk)}${isCurrent?'<span class="badge-current">EN COURS</span>':''}</div>
+        <div class="month-line"></div><div class="month-count">${byMonth[mk].length}</div>
       </div>
-    `;
+      <div class="cards-grid">${byMonth[mk].map(e=>renderCard(e)).join('')}</div>
+    </div>`;
   });
-  cal.innerHTML = html;
+  cal.innerHTML=html;
 }
 
 function renderCard(e) {
-  const isTermine = e.statut === 'Terminé';
-  const editeurBadges = e.editeurs.filter(ed => ed !== 'Sans éditeur').map(ed => `<span class="badge-editeur">${ed}</span>`).join('');
-  const formatBadge = e.format === 'Webinaire' ? '<span class="badge-webinaire">🎥 Webinaire</span>' : '<span class="badge-presentiel">📍 Présentiel</span>';
-  const warnBadge = e.dateWarning ? '<span class="warn-badge">⚠ À confirmer</span>' : '';
-  const sfLine = e.codeSFClean ? `<div style="margin-top:8px;"><span class="sf-code">Code SF : ${e.codeSFClean}</span></div>` : '';
-  return `
-    <div class="event-card${isTermine ? ' terminated' : ''}">
-      <div class="card-top">
-        <div class="card-title">${e.nom}</div>
-        <span class="status-badge ${isTermine ? 'status-termine' : 'status-actif'}">${isTermine ? 'Terminé' : 'Actif'}</span>
-      </div>
-      <div class="card-date">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9090b0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>${formatDateFull(e.date)}</span>
-        ${warnBadge}
-      </div>
-      <div class="tags-row">
-        ${formatBadge}
-        ${editeurBadges}
-      </div>
-      ${sfLine}
-    </div>
-  `;
+  const isT=e.statut==='Terminé';
+  const eds=e.editeurs.filter(ed=>ed!=='Sans éditeur').map(ed=>`<span class="badge-editeur">${ed}</span>`).join('');
+  const fmt=e.format==='Webinaire'?'<span class="badge-webinaire">🎥 Webinaire</span>':'<span class="badge-presentiel">📍 Présentiel</span>';
+  const warn=e.warn?'<span class="warn-badge">⚠ À confirmer</span>':'';
+  const sf=e.sf?`<div style="margin-top:8px"><span class="sf-code">Code SF : ${e.sf}</span></div>`:'';
+  return `<div class="event-card${isT?' terminated':''}">
+    <div class="card-top"><div class="card-title">${e.nom}</div><span class="status-badge ${isT?'status-termine':'status-actif'}">${isT?'Terminé':'Actif'}</span></div>
+    <div class="card-date"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9090b0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>${dateFullFR(e.date)}</span>${warn}</div>
+    <div class="tags-row">${fmt}${eds}</div>${sf}
+  </div>`;
 }
 
 function scrollToToday() {
-  // Reset filters to show current month
-  document.getElementById('filterMonth').value = 'all';
+  document.getElementById('filterMonth').value='all';
   renderCalendar();
-  setTimeout(() => {
-    const el = document.getElementById('month-' + CURRENT_MONTH_KEY);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 50);
+  setTimeout(()=>{ const el=document.getElementById('month-'+CURRENT_MONTH_KEY); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },50);
 }
 
 initDropdowns();
