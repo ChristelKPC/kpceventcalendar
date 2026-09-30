@@ -133,7 +133,7 @@ function cSF(c){if(!c)return'';const t=c.trim();if(t.toLowerCase()==='sans objet
 function mKey(d){return d.substring(0,7);}
 function mLabel(k){const[y,m]=k.split('-');return MONTHS_FR[parseInt(m)-1]+' '+y;}
 function dFR(d){const dt=new Date(d+'T00:00:00');return DAYS_FR[dt.getDay()]+' '+dt.getDate()+' '+MONTHS_FR[dt.getMonth()]+' '+dt.getFullYear();}
-const EVENTS=RAW_EVENTS.map(e=>(({...e,editeurs:rEd(e.editeurs),dateObj:new Date(e.date+'T00:00:00'),monthKey:mKey(e.date),sf:cSF(e.codeSF)}))).sort((a,b)=>a.dateObj-b.dateObj);
+const EVENTS=RAW_EVENTS.map(e=>{const dObj=new Date(e.date+'T00:00:00');return{...e,editeurs:rEd(e.editeurs),dateObj:dObj,monthKey:mKey(e.date),sf:cSF(e.codeSF),statut:dObj<TODAY?'Terminé':e.statut};}).sort((a,b)=>a.dateObj-b.dateObj);
 const AT=EVENTS.length,ATE=EVENTS.filter(e=>e.statut==='Terminé').length,AAC=EVENTS.filter(e=>e.statut!=='Terminé').length;
 const AW=EVENTS.filter(e=>e.format_ext==='Webinaire').length,AP=EVENTS.filter(e=>e.format_ext==='Présentiel').length;
 const PCT=Math.round((ATE/AT)*100);
