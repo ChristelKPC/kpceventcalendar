@@ -28,8 +28,6 @@
   .filter-select { padding: 7px 30px 7px 12px; border-radius: 8px; border: 1.5px solid #e0dded; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239090aa' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 10px center; appearance: none; font-size: 13px; font-weight: 500; color: #160D3D; cursor: pointer; outline: none; min-width: 150px; transition: border-color .15s; }
   .filter-select:hover, .filter-select:focus { border-color: #FF5201; }
   .filter-select.active { border-color: #160D3D; background-color: #f5f4fb; }
-  .filter-btn-confirm { padding: 7px 14px; border-radius: 8px; border: 1.5px solid #fde68a; background: #FFF8E1; font-size: 13px; font-weight: 500; color: #b45309; cursor: pointer; white-space: nowrap; transition: all .15s; }
-  .filter-btn-confirm.active { background: #b45309; color: #fff; border-color: #b45309; }
   .search-wrap { position: relative; flex: 1; min-width: 180px; }
   .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
   .search-box { width: 100%; padding: 7px 12px 7px 30px; border-radius: 8px; border: 1.5px solid #e0dded; font-size: 13px; color: #160D3D; outline: none; background: #fff; transition: border-color .15s; }
@@ -54,15 +52,12 @@
   .event-card:hover { box-shadow: 0 6px 24px rgba(22,13,61,0.1); border-color: #d0caec; transform: translateY(-1px); }
   .event-card.terminated { opacity: 0.52; }
   .event-card.terminated:hover { opacity: 0.75; }
-  .event-card.a-valider { border-color: #fde68a; background: #fffdf5; }
   .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
   .card-title { font-size: 14px; font-weight: 600; color: #160D3D; line-height: 1.35; flex: 1; }
   .status-badge { flex-shrink: 0; font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
   .status-actif { background: #DCFCE7; color: #166534; }
   .status-termine { background: #f0eef8; color: #7a6aaa; }
-  .status-avalider { background: #FFF8E1; color: #b45309; }
   .card-date { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #6a5a9a; margin-bottom: 10px; flex-wrap: wrap; }
-  .warn-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; background: #FFF8E1; color: #b45309; border-radius: 10px; padding: 2px 8px; border: 1px solid #fde68a; }
   .tags-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
   .badge-editeur { font-size: 11px; font-weight: 600; background: #1E1255; color: #FF9604; border-radius: 6px; padding: 3px 8px; }
   .badge-webinaire { font-size: 11px; font-weight: 500; background: #EDE9F8; color: #4A3A9B; border-radius: 6px; padding: 3px 8px; }
@@ -116,7 +111,6 @@
       <option value="actif">Actif</option>
       <option value="Terminé">Terminé</option>
     </select>
-    <button class="filter-btn-confirm" id="btnConfirm" onclick="toggleConfirm()">⚠ À valider</button>
     <div class="search-wrap">
       <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9090aa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input class="search-box" type="text" id="searchBox" placeholder="Rechercher un event…" oninput="renderCalendar()">
@@ -128,161 +122,75 @@
   <div id="calendar"></div>
 </div>
 <script>
-const EDITORS = {
-  '0dc881c363874d118f886734d098c32e': 'DBT',
-  '120fe43461bc445c97c7223aca037066': 'Imagino',
-  '15481c5bb54280148282e0c5f5bb58c6': 'Pigment',
-  '15481c5bb54280feb4dfd61d096e912a': 'Informatica',
-  '16281c5bb54280ebba7cce266e16e9d2': 'Sans éditeur',
-  '1d99cbf8391349aa9c91358ec9bac35e': 'Salesforce',
-  '23481c5bb54280d49df2c774e0ca8723': 'Fivetran',
-  '28581c5bb54280f29e77fd168c796361': 'Coalesce',
-  '29c81c5bb54280f6ac04d2dfa4431364': 'Kshuttle',
-  '33c81c5bb54280dca47fcadd00160171': 'Omni',
-  '435bbea97c0f4ea083918ceaa4805d36': 'Semarchy',
-  '63ed092fa45e4cbda685132d00ec80c9': 'Oracle',
-  '851dd8ebc63d473aad4dd0d1eeaf5639': 'Datagalaxy',
-  'd7e939a5435442b98f98de5780a2cb93': 'Onestream',
-  'ef93e9497ea146d98114803c96fc8980': 'SAP',
-  'efa9722ae5b8439ea4b3165ebbd793db': 'Snowflake'
-};
-const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-const DAYS_FR = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-const TODAY = new Date();
-const CURRENT_MONTH_KEY = TODAY.getFullYear() + '-' + String(TODAY.getMonth()+1).padStart(2,'0');
-
-const RAW_EVENTS = [{"nom": "INFORMATICA - Webinar Informatica data Observability", "date": "2026-02-19", "format_ext": "Webinaire", "editeurs": ["15481c5bb54280feb4dfd61d096e912a"], "statut": "Terminé", "codeSF": "2026-KPC-WEBINAR-INORMATICA-0219"}, {"nom": "Webinar CPM Express Onestream", "date": "2026-03-12", "format_ext": "Webinaire", "editeurs": ["d7e939a5435442b98f98de5780a2cb93"], "statut": "Terminé", "codeSF": "2026-KPC-WEBINAIRE-ONESTREAM-0312"}, {"nom": "Dataquitaine 2026", "date": "2026-03-19", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": ""}, {"nom": "Event SAP / SNOW / KPC (SAP CONNECT 19/03)", "date": "2026-03-19", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db", "ef93e9497ea146d98114803c96fc8980"], "statut": "Terminé", "codeSF": "2026-KPC-SAP-CONNECT-0319"}, {"nom": "SNOWFLAKE - D4B PARIS", "date": "2026-04-14", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": "2026-KPC-D4B-SNOWFLAKE-0414"}, {"nom": "Event SAP / SNOW Lyon", "date": "2026-04-23", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db", "ef93e9497ea146d98114803c96fc8980"], "statut": "Terminé", "codeSF": "2026-KPC-SAP-SNOWFLAKE-LYON-0423"}, {"nom": "DBT - Webinar Datagouvernance", "date": "2026-05-26", "format_ext": "Webinaire", "editeurs": ["0dc881c363874d118f886734d098c32e"], "statut": "Terminé", "codeSF": "KPC-DBT-DATAGOUV-260526"}, {"nom": "Cultive Ta data Montpellier", "date": "2026-05-28", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": "2026-KPC-CTD-260528"}, {"nom": "SNOWFLAKE - SUMMIT San Francisco", "date": "2026-06-01", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": ""}, {"nom": "OS WORLD TOUR PARIS", "date": "2026-06-02", "format_ext": "Présentiel", "editeurs": ["d7e939a5435442b98f98de5780a2cb93"], "statut": "Terminé", "codeSF": ""}, {"nom": "Kshuttle Connect 2026 - Paris", "date": "2026-06-04", "format_ext": "Présentiel", "editeurs": ["29c81c5bb54280f6ac04d2dfa4431364"], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY - Event atelier Jeux de carte - Paris + Rex BEL", "date": "2026-06-09", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-KPC-ATG-PARIS-0409"}, {"nom": "DATAGALAXY - Summit - Paris", "date": "2026-06-11", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #1 - Produit Portfolio", "date": "2026-06-16", "format_ext": "Webinaire", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-KPC-DATAGALAXY-WEBINAR-PORTEFOLIO-0616"}, {"nom": "SNOWFLAKE / COALESCE / FIVETRAN / OMNI - Event - Paris", "date": "2026-06-23", "format_ext": "Présentiel", "editeurs": ["28581c5bb54280f29e77fd168c796361", "efa9722ae5b8439ea4b3165ebbd793db", "23481c5bb54280d49df2c774e0ca8723", "33c81c5bb54280dca47fcadd00160171"], "statut": "Terminé", "codeSF": "2026-KPC-EVENT-FRDTLA-2026-0623"}, {"nom": "DATAGALAXY - Event REX Apicil - Lyon", "date": "2026-06-25", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-DATAGALAXY-EVENT-REX-APCIL-0623"}, {"nom": "Republic Deauville", "date": "2026-06-29", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": "2026-KPC-REPUBLIK-DEAUVILLE-0629"}, {"nom": "SUG Lyon 01/07", "date": "2026-07-01", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": ""}, {"nom": "ORACLE - Webinar Migration Essbase - Rex Compass - date à définir", "date": "2026-09-08", "format_ext": "Webinaire", "editeurs": ["63ed092fa45e4cbda685132d00ec80c9"], "statut": "A valider", "codeSF": "2026-KPC-ORACLE-WEBINAIRE-0630"}, {"nom": "Club Reussir Toulouse 08/09", "date": "2026-09-08", "format_ext": "Présentiel", "editeurs": [], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #1 - Solva 2 - Date à définir", "date": "2026-09-15", "format_ext": "Webinaire", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "A valider", "codeSF": ""}, {"nom": "SALON DE LA DATA NANTES + informatica", "date": "2026-09-17", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2", "15481c5bb54280feb4dfd61d096e912a"], "statut": "Actif", "codeSF": "2026-KPC-SALON-DATA-NANTES-0922"}, {"nom": "DATAGALAXY - Atelier Jeu Datagouv' - Aix-Marseille - DATE A CONFIRMER", "date": "2026-09-22", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "A valider", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #3 - Success story ARNAL - DATE A CONFIRMER", "date": "2026-09-24", "format_ext": "Webinaire", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "A valider", "codeSF": ""}, {"nom": "SEMARCHY summit", "date": "2026-09-24", "format_ext": "Présentiel", "editeurs": ["435bbea97c0f4ea083918ceaa4805d36"], "statut": "Actif", "codeSF": "2026-KPC-SEMARCHY-0924"}, {"nom": "Event Pigment Nantes - rex HAVEA - date à identifier", "date": "2026-09-30", "format_ext": "Présentiel", "editeurs": ["15481c5bb54280148282e0c5f5bb58c6"], "statut": "A valider", "codeSF": ""}, {"nom": "CLUB DES DATA LEADERS Marseille", "date": "2026-09-30", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "A valider", "codeSF": ""}, {"nom": "Webinar Pigment - EXPERIENCE LAB AGENT MODELER - date à identifier", "date": "2026-09-30", "format_ext": "Présentiel", "editeurs": ["15481c5bb54280148282e0c5f5bb58c6"], "statut": "A valider", "codeSF": ""}, {"nom": "PIGMENT - Webinar remplacement BPC - date à voir", "date": "2026-09-30", "format_ext": "Webinaire", "editeurs": ["15481c5bb54280148282e0c5f5bb58c6"], "statut": "A valider", "codeSF": ""}, {"nom": "ORACLE - Webinar Migration Essbase - rex CIS date à définir", "date": "2026-09-30", "format_ext": "Webinaire", "editeurs": ["63ed092fa45e4cbda685132d00ec80c9"], "statut": "A valider", "codeSF": "2026-KPC-ORACLE-WEBINAIRE-0630"}, {"nom": "Pigment Catalyst Paris", "date": "2026-10-06", "format_ext": "Présentiel", "editeurs": ["15481c5bb54280148282e0c5f5bb58c6"], "statut": "Actif", "codeSF": "2026-KPC-PIGMENT-CATALYSE-0906"}, {"nom": "SALESFORCE Diner vip - Lyon - 08/10", "date": "2026-10-08", "format_ext": "Présentiel", "editeurs": ["1d99cbf8391349aa9c91358ec9bac35e"], "statut": "Actif", "codeSF": "2026-KPC-SALESFORCE-DINER-LYON-0810"}, {"nom": "Postcast Datagen datagouv + IA", "date": "2026-10-12", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}, {"nom": "SAP - Convention USF 26 - STRASBOURG", "date": "2026-10-14", "format_ext": "Présentiel", "editeurs": ["ef93e9497ea146d98114803c96fc8980"], "statut": "Actif", "codeSF": "2026-KPC-USF-STRASBOURG-1014"}, {"nom": "SNOWFLAKE - SWT - Paris", "date": "2026-10-15", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Actif", "codeSF": "2026-KPC-SNOWFLAKE-SWTPARIS-1015"}, {"nom": "Innovation tour Marseille ou Lyon", "date": "2026-10-28", "format_ext": "Présentiel", "editeurs": ["1d99cbf8391349aa9c91358ec9bac35e"], "statut": "A valider", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #4 - module gouv DG + SnowFlake s2 - DATE A CONFIRMER", "date": "2026-10-29", "format_ext": "Webinaire", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "A valider", "codeSF": ""}, {"nom": "DATAGALAXY - Atelier Jeu Datagouv' - TOULOUSE - DATE A CONFIRMER", "date": "2026-10-30", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "A valider", "codeSF": ""}, {"nom": "PARTNER AFTERWORKS - Paris - Date à confirmer", "date": "2026-11-19", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #2 - souveraineté On Prem - DATE A CONFIRMER", "date": "2026-11-26", "format_ext": "Webinaire", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "A valider", "codeSF": ""}, {"nom": "ADIRA LYON", "date": "2026-12-01", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}, {"nom": "Salon adopt IA Paris 3&4 dec", "date": "2026-12-03", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": "2026-KPC-ADOPTIA-1203"}];
-
-function resolveEditors(ids) { return [...new Set(ids.map(id => EDITORS[id] || '?'))]; }
-function cleanSF(c) { if (!c) return ''; const t = c.trim(); if (['sans objet','Sans Objet'].includes(t)) return ''; return t; }
-function monthKey(d) { return d.substring(0,7); }
-function monthLabel(k) { const [y,m] = k.split('-'); return MONTHS_FR[parseInt(m)-1] + ' ' + y; }
-function dateFullFR(d) { const dt = new Date(d+'T00:00:00'); return DAYS_FR[dt.getDay()]+' '+dt.getDate()+' '+MONTHS_FR[dt.getMonth()]+' '+dt.getFullYear(); }
-
-const EVENTS = RAW_EVENTS.map(e => ({
-  ...e,
-  editeurs: resolveEditors(e.editeurs),
-  dateObj: new Date(e.date+'T00:00:00'),
-  monthKey: monthKey(e.date),
-  sf: cleanSF(e.codeSF),
-  isAValider: e.statut === 'A valider'
-})).sort((a,b)=>a.dateObj-b.dateObj);
-
-// Stats annuelles : hors "A valider"
-const EVENTS_CONFIRMED = EVENTS.filter(e => !e.isAValider);
-const ANN_TOTAL = EVENTS_CONFIRMED.length;
-const ANN_TERMINE = EVENTS_CONFIRMED.filter(e=>e.statut==='Terminé').length;
-const ANN_ACTIF = EVENTS_CONFIRMED.filter(e=>e.statut!=='Terminé').length;
-const ANN_WEB = EVENTS_CONFIRMED.filter(e=>e.format_ext==='Webinaire').length;
-const ANN_PRES = EVENTS_CONFIRMED.filter(e=>e.format_ext==='Présentiel').length;
-const ANN_AVALIDER = EVENTS.filter(e=>e.isAValider).length;
-const PCT = Math.round((ANN_TERMINE/ANN_TOTAL)*100);
-
-document.getElementById('progressLabel').innerHTML = '<strong>'+ANN_TERMINE+' / '+ANN_TOTAL+'</strong> événements réalisés en 2026';
-document.getElementById('progressFill').style.width = PCT+'%';
-document.getElementById('progressPct').textContent = PCT+'%';
-document.getElementById('annualStats').innerHTML = `
-  <div class="annual-label">Récapitulatif annuel 2026</div>
-  <div class="stats-row">
-    <div class="stat-item"><div class="stat-num">${ANN_TOTAL}</div><div class="stat-lbl">Confirmés</div></div>
-    <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-num" style="color:#166534">${ANN_ACTIF}</div><div class="stat-lbl">Actifs</div></div>
-    <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-num" style="color:#7a6aaa">${ANN_TERMINE}</div><div class="stat-lbl">Terminés</div></div>
-    <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-num" style="color:#4A3A9B">${ANN_WEB}</div><div class="stat-lbl">Webinaires</div></div>
-    <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-num" style="color:#B03A00">${ANN_PRES}</div><div class="stat-lbl">Présentiel</div></div>
-    <div class="stat-divider"></div>
-    <div class="stat-item"><div class="stat-num" style="color:#b45309">${ANN_AVALIDER}</div><div class="stat-lbl">À valider</div></div>
-  </div>`;
-
-function initDropdowns() {
-  const ms = document.getElementById('filterMonth');
-  [...new Set(EVENTS.map(e=>e.monthKey))].sort().forEach(mk=>{ const o=document.createElement('option'); o.value=mk; o.textContent=monthLabel(mk); ms.appendChild(o); });
-  const es = document.getElementById('filterEditeur');
-  [...new Set(EVENTS.flatMap(e=>e.editeurs))].filter(ed=>ed!=='Sans éditeur'&&ed!=='?').sort().forEach(ed=>{ const o=document.createElement('option'); o.value=ed; o.textContent=ed; es.appendChild(o); });
+const EDITORS={'0dc881c363874d118f886734d098c32e':'DBT','120fe43461bc445c97c7223aca037066':'Imagino','15481c5bb54280148282e0c5f5bb58c6':'Pigment','15481c5bb54280feb4dfd61d096e912a':'Informatica','16281c5bb54280ebba7cce266e16e9d2':'Sans éditeur','1d99cbf8391349aa9c91358ec9bac35e':'Salesforce','23481c5bb54280d49df2c774e0ca8723':'Fivetran','28581c5bb54280f29e77fd168c796361':'Coalesce','29c81c5bb54280f6ac04d2dfa4431364':'Kshuttle','33c81c5bb54280dca47fcadd00160171':'Omni','435bbea97c0f4ea083918ceaa4805d36':'Semarchy','63ed092fa45e4cbda685132d00ec80c9':'Oracle','851dd8ebc63d473aad4dd0d1eeaf5639':'Datagalaxy','d7e939a5435442b98f98de5780a2cb93':'Onestream','ef93e9497ea146d98114803c96fc8980':'SAP','efa9722ae5b8439ea4b3165ebbd793db':'Snowflake'};
+const MONTHS_FR=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const DAYS_FR=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const TODAY=new Date();
+const CURRENT_MONTH_KEY=TODAY.getFullYear()+'-'+String(TODAY.getMonth()+1).padStart(2,'0');
+const RAW_EVENTS=[{"nom": "INFORMATICA - Webinar Informatica data Observability", "date": "2026-02-19", "format_ext": "Webinaire", "editeurs": ["15481c5bb54280feb4dfd61d096e912a"], "statut": "Terminé", "codeSF": "2026-KPC-WEBINAR-INORMATICA-0219"}, {"nom": "Webinar CPM Express Onestream", "date": "2026-03-12", "format_ext": "Webinaire", "editeurs": ["d7e939a5435442b98f98de5780a2cb93"], "statut": "Terminé", "codeSF": "2026-KPC-WEBINAIRE-ONESTREAM-0312"}, {"nom": "Dataquitaine 2026", "date": "2026-03-19", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": ""}, {"nom": "Event SAP / SNOW / KPC (SAP CONNECT 19/03)", "date": "2026-03-19", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db", "ef93e9497ea146d98114803c96fc8980"], "statut": "Terminé", "codeSF": "2026-KPC-SAP-CONNECT-0319"}, {"nom": "SNOWFLAKE - D4B PARIS", "date": "2026-04-14", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": "2026-KPC-D4B-SNOWFLAKE-0414"}, {"nom": "Event SAP / SNOW Lyon", "date": "2026-04-23", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db", "ef93e9497ea146d98114803c96fc8980"], "statut": "Terminé", "codeSF": "2026-KPC-SAP-SNOWFLAKE-LYON-0423"}, {"nom": "DBT - Webinar Datagouvernance", "date": "2026-05-26", "format_ext": "Webinaire", "editeurs": ["0dc881c363874d118f886734d098c32e"], "statut": "Terminé", "codeSF": "KPC-DBT-DATAGOUV-260526"}, {"nom": "Cultive Ta data Montpellier", "date": "2026-05-28", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": "2026-KPC-CTD-260528"}, {"nom": "SNOWFLAKE - SUMMIT San Francisco", "date": "2026-06-01", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": ""}, {"nom": "OS WORLD TOUR PARIS", "date": "2026-06-02", "format_ext": "Présentiel", "editeurs": ["d7e939a5435442b98f98de5780a2cb93"], "statut": "Terminé", "codeSF": ""}, {"nom": "Kshuttle Connect 2026 - Paris", "date": "2026-06-04", "format_ext": "Présentiel", "editeurs": ["29c81c5bb54280f6ac04d2dfa4431364"], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY - Event atelier Jeux de carte - Paris + Rex BEL", "date": "2026-06-09", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-KPC-ATG-PARIS-0409"}, {"nom": "DATAGALAXY - Summit - Paris", "date": "2026-06-11", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": ""}, {"nom": "DATAGALAXY : webinar #1 - Produit Portfolio", "date": "2026-06-16", "format_ext": "Webinaire", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-KPC-DATAGALAXY-WEBINAR-PORTEFOLIO-0616"}, {"nom": "DATAGALAXY - Event REX Apicil - Lyon", "date": "2026-06-25", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Terminé", "codeSF": "2026-DATAGALAXY-EVENT-REX-APCIL-0623"}, {"nom": "Republic Deauville", "date": "2026-06-29", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Terminé", "codeSF": "2026-KPC-REPUBLIK-DEAUVILLE-0629"}, {"nom": "SUG Lyon 01/07", "date": "2026-07-01", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Terminé", "codeSF": ""}, {"nom": "Club Reussir Toulouse 08/09", "date": "2026-09-08", "format_ext": "Présentiel", "editeurs": [], "statut": "Terminé", "codeSF": ""}, {"nom": "SALON DE LA DATA NANTES + informatica", "date": "2026-09-22", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2", "15481c5bb54280feb4dfd61d096e912a"], "statut": "Actif", "codeSF": "2026-KPC-SALON-DATA-NANTES-0922"}, {"nom": "SEMARCHY summit", "date": "2026-09-24", "format_ext": "Présentiel", "editeurs": ["435bbea97c0f4ea083918ceaa4805d36"], "statut": "Actif", "codeSF": "2026-KPC-SEMARCHY-0924"}, {"nom": "Pigment Catalyst Paris", "date": "2026-10-06", "format_ext": "Présentiel", "editeurs": ["15481c5bb54280148282e0c5f5bb58c6"], "statut": "Actif", "codeSF": "2026-KPC-PIGMENT-CATALYSE-0906"}, {"nom": "Postcast Datagen datagouv + IA", "date": "2026-10-12", "format_ext": "Présentiel", "editeurs": [], "statut": "Actif", "codeSF": ""}, {"nom": "SAP - Convention USF 26 - STRASBOURG", "date": "2026-10-14", "format_ext": "Présentiel", "editeurs": ["ef93e9497ea146d98114803c96fc8980"], "statut": "Actif", "codeSF": "2026-KPC-USF-STRASBOURG-1014"}, {"nom": "SNOWFLAKE - SWT - Paris", "date": "2026-10-15", "format_ext": "Présentiel", "editeurs": ["efa9722ae5b8439ea4b3165ebbd793db"], "statut": "Actif", "codeSF": "2026-KPC-SNOWFLAKE-SWTPARIS-1015"}, {"nom": "SALESFORCE Diner vip - Lyon", "date": "2026-11-03", "format_ext": "Présentiel", "editeurs": ["1d99cbf8391349aa9c91358ec9bac35e"], "statut": "Actif", "codeSF": "2026-KPC-SALESFORCE-DINER-LYON-0810"}, {"nom": "PARTNER AFTERWORKS - Paris - Date à confirmer", "date": "2026-11-12", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}, {"nom": "DATAGALAXY - Atelier Jeu Datagouv' - TOULOUSE", "date": "2026-11-19", "format_ext": "Présentiel", "editeurs": ["851dd8ebc63d473aad4dd0d1eeaf5639"], "statut": "Actif", "codeSF": ""}, {"nom": "ADIRA LYON", "date": "2026-12-01", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": ""}, {"nom": "Salon adopt IA Paris 3&4 dec", "date": "2026-12-03", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": "2026-KPC-EVENT-ARTEFACT-ADOPTAI-1203"}, {"nom": "Salon IA Montpellier 9 dec 2026", "date": "2026-12-09", "format_ext": "Présentiel", "editeurs": ["16281c5bb54280ebba7cce266e16e9d2"], "statut": "Actif", "codeSF": "2026-KPC-SALON-IA-MONTPELLIER-1209"}];
+function rEd(ids){return[...new Set(ids.map(id=>EDITORS[id]||'?'))];}
+function cSF(c){if(!c)return'';const t=c.trim();if(t.toLowerCase()==='sans objet')return'';return t;}
+function mKey(d){return d.substring(0,7);}
+function mLabel(k){const[y,m]=k.split('-');return MONTHS_FR[parseInt(m)-1]+' '+y;}
+function dFR(d){const dt=new Date(d+'T00:00:00');return DAYS_FR[dt.getDay()]+' '+dt.getDate()+' '+MONTHS_FR[dt.getMonth()]+' '+dt.getFullYear();}
+const EVENTS=RAW_EVENTS.map(e=>(({...e,editeurs:rEd(e.editeurs),dateObj:new Date(e.date+'T00:00:00'),monthKey:mKey(e.date),sf:cSF(e.codeSF)}))).sort((a,b)=>a.dateObj-b.dateObj);
+const AT=EVENTS.length,ATE=EVENTS.filter(e=>e.statut==='Terminé').length,AAC=EVENTS.filter(e=>e.statut!=='Terminé').length;
+const AW=EVENTS.filter(e=>e.format_ext==='Webinaire').length,AP=EVENTS.filter(e=>e.format_ext==='Présentiel').length;
+const PCT=Math.round((ATE/AT)*100);
+document.getElementById('progressLabel').innerHTML='<strong>'+ATE+' / '+AT+'</strong> événements réalisés en 2026';
+document.getElementById('progressFill').style.width=PCT+'%';
+document.getElementById('progressPct').textContent=PCT+'%';
+document.getElementById('annualStats').innerHTML=`<div class="annual-label">Récapitulatif annuel 2026</div><div class="stats-row"><div class="stat-item"><div class="stat-num">${AT}</div><div class="stat-lbl">Total</div></div><div class="stat-divider"></div><div class="stat-item"><div class="stat-num" style="color:#166534">${AAC}</div><div class="stat-lbl">Actifs</div></div><div class="stat-divider"></div><div class="stat-item"><div class="stat-num" style="color:#7a6aaa">${ATE}</div><div class="stat-lbl">Terminés</div></div><div class="stat-divider"></div><div class="stat-item"><div class="stat-num" style="color:#4A3A9B">${AW}</div><div class="stat-lbl">Webinaires</div></div><div class="stat-divider"></div><div class="stat-item"><div class="stat-num" style="color:#B03A00">${AP}</div><div class="stat-lbl">Présentiel</div></div></div>`;
+function initDD(){
+  const ms=document.getElementById('filterMonth');
+  [...new Set(EVENTS.map(e=>e.monthKey))].sort().forEach(mk=>{const o=document.createElement('option');o.value=mk;o.textContent=mLabel(mk);ms.appendChild(o);});
+  const es=document.getElementById('filterEditeur');
+  [...new Set(EVENTS.flatMap(e=>e.editeurs))].filter(ed=>ed!=='Sans éditeur'&&ed!=='?').sort().forEach(ed=>{const o=document.createElement('option');o.value=ed;o.textContent=ed;es.appendChild(o);});
 }
-
-let filterConfirm = false;
-function toggleConfirm() { filterConfirm=!filterConfirm; document.getElementById('btnConfirm').classList.toggle('active',filterConfirm); renderCalendar(); }
-
-function getFilters() {
-  return { month: document.getElementById('filterMonth').value, editeur: document.getElementById('filterEditeur').value, format: document.getElementById('filterFormat').value, statut: document.getElementById('filterStatut').value, q: document.getElementById('searchBox').value.toLowerCase().trim(), confirm: filterConfirm };
-}
-
-function getFiltered(f) {
-  const anyActive = f.month!=='all'||f.editeur!=='all'||f.format!=='all'||f.statut!=='all'||f.q!=='';
-  return EVENTS.filter(e => {
-    // Les "A valider" : visibles UNIQUEMENT quand le bouton est actif
-    if (e.isAValider && !f.confirm) return false;
-    // Si bouton actif : montrer UNIQUEMENT les "A valider"
-    if (f.confirm && !e.isAValider) return false;
-    // Masquer passé sauf filtre actif
-    if (!anyActive && !f.confirm && e.monthKey < CURRENT_MONTH_KEY) return false;
-    if (f.month!=='all' && e.monthKey!==f.month) return false;
-    if (f.editeur!=='all' && !e.editeurs.includes(f.editeur)) return false;
-    if (f.format!=='all' && e.format_ext!==f.format) return false;
-    if (f.statut==='actif' && e.statut==='Terminé') return false;
-    if (f.statut==='Terminé' && e.statut!=='Terminé') return false;
-    if (f.q) { const h=[e.nom,...e.editeurs,e.sf].join(' ').toLowerCase(); if (!h.includes(f.q)) return false; }
+function gF(){return{month:document.getElementById('filterMonth').value,editeur:document.getElementById('filterEditeur').value,format:document.getElementById('filterFormat').value,statut:document.getElementById('filterStatut').value,q:document.getElementById('searchBox').value.toLowerCase().trim()};}
+function gFiltered(f){
+  const any=f.month!=='all'||f.editeur!=='all'||f.format!=='all'||f.statut!=='all'||f.q!=='';
+  return EVENTS.filter(e=>{
+    if(!any&&e.monthKey<CURRENT_MONTH_KEY)return false;
+    if(f.month!=='all'&&e.monthKey!==f.month)return false;
+    if(f.editeur!=='all'&&!e.editeurs.includes(f.editeur))return false;
+    if(f.format!=='all'&&e.format_ext!==f.format)return false;
+    if(f.statut==='actif'&&e.statut==='Terminé')return false;
+    if(f.statut==='Terminé'&&e.statut!=='Terminé')return false;
+    if(f.q){const h=[e.nom,...e.editeurs,e.sf].join(' ').toLowerCase();if(!h.includes(f.q))return false;}
     return true;
   });
 }
-
-function renderCalendar() {
-  const f = getFilters();
-  const filtered = getFiltered(f);
-  document.getElementById('headerCount').textContent = filtered.length+' événement'+(filtered.length>1?'s':'')+' affichés';
-  ['filterMonth','filterEditeur','filterFormat','filterStatut'].forEach(id=>{ document.getElementById(id).classList.toggle('active',document.getElementById(id).value!=='all'); });
-  const cal = document.getElementById('calendar');
-  if (!filtered.length) { cal.innerHTML='<div class="empty-state"><h3>Aucun événement trouvé</h3><p>Essayez de modifier vos filtres.</p></div>'; return; }
-  const byMonth={};
-  filtered.forEach(e=>{ if(!byMonth[e.monthKey]) byMonth[e.monthKey]=[]; byMonth[e.monthKey].push(e); });
+function renderCalendar(){
+  const f=gF(),filtered=gFiltered(f);
+  document.getElementById('headerCount').textContent=filtered.length+' événement'+(filtered.length>1?'s':'')+' affichés';
+  ['filterMonth','filterEditeur','filterFormat','filterStatut'].forEach(id=>{document.getElementById(id).classList.toggle('active',document.getElementById(id).value!=='all');});
+  const cal=document.getElementById('calendar');
+  if(!filtered.length){cal.innerHTML='<div class="empty-state"><h3>Aucun événement trouvé</h3><p>Essayez de modifier vos filtres.</p></div>';return;}
+  const bM={};
+  filtered.forEach(e=>{if(!bM[e.monthKey])bM[e.monthKey]=[];bM[e.monthKey].push(e);});
   let html='';
-  Object.keys(byMonth).sort().forEach(mk=>{
-    const isPast=mk<CURRENT_MONTH_KEY, isCurrent=mk===CURRENT_MONTH_KEY;
-    html+=`<div class="month-section${isPast?' month-past':''}" id="month-${mk}">
-      <div class="month-header">
-        <div class="month-label">${monthLabel(mk)}${isCurrent?'<span class="badge-current">EN COURS</span>':''}</div>
-        <div class="month-line"></div><div class="month-count">${byMonth[mk].length}</div>
-      </div>
-      <div class="cards-grid">${byMonth[mk].map(e=>renderCard(e)).join('')}</div>
-    </div>`;
+  Object.keys(bM).sort().forEach(mk=>{
+    const iP=mk<CURRENT_MONTH_KEY,iC=mk===CURRENT_MONTH_KEY;
+    html+=`<div class="month-section${iP?' month-past':''}" id="month-${mk}"><div class="month-header"><div class="month-label">${mLabel(mk)}${iC?'<span class="badge-current">EN COURS</span>':''}</div><div class="month-line"></div><div class="month-count">${bM[mk].length}</div></div><div class="cards-grid">${bM[mk].map(e=>rCard(e)).join('')}</div></div>`;
   });
   cal.innerHTML=html;
 }
-
-function renderCard(e) {
+function rCard(e){
   const isT=e.statut==='Terminé';
-  const isAV=e.isAValider;
-  let cardClass='event-card';
-  if(isT) cardClass+=' terminated';
-  if(isAV) cardClass+=' a-valider';
+  const cc='event-card'+(isT?' terminated':'');
   const eds=e.editeurs.filter(ed=>ed!=='Sans éditeur'&&ed!=='?').map(ed=>`<span class="badge-editeur">${ed}</span>`).join('');
   const fmt=e.format_ext==='Webinaire'?'<span class="badge-webinaire">🎥 Webinaire</span>':'<span class="badge-presentiel">📍 Présentiel</span>';
   const sf=e.sf?`<div style="margin-top:8px"><span class="sf-code">Code SF : ${e.sf}</span></div>`:'';
-  let statusLabel, statusClass;
-  if(isT){ statusLabel='Terminé'; statusClass='status-termine'; }
-  else if(isAV){ statusLabel='À valider'; statusClass='status-avalider'; }
-  else { statusLabel='Actif'; statusClass='status-actif'; }
-  return `<div class="${cardClass}">
-    <div class="card-top"><div class="card-title">${e.nom}</div><span class="status-badge ${statusClass}">${statusLabel}</span></div>
-    <div class="card-date"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9090b0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>${dateFullFR(e.date)}</span></div>
-    <div class="tags-row">${fmt}${eds}</div>${sf}
-  </div>`;
+  const[sL,sC]=isT?['Terminé','status-termine']:['Actif','status-actif'];
+  return`<div class="${cc}"><div class="card-top"><div class="card-title">${e.nom}</div><span class="status-badge ${sC}">${sL}</span></div><div class="card-date"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9090b0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>${dFR(e.date)}</span></div><div class="tags-row">${fmt}${eds}</div>${sf}</div>`;
 }
-
-function scrollToToday() {
+function scrollToToday(){
   document.getElementById('filterMonth').value='all';
-  filterConfirm=false;
-  document.getElementById('btnConfirm').classList.remove('active');
   renderCalendar();
-  setTimeout(()=>{ const el=document.getElementById('month-'+CURRENT_MONTH_KEY); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },50);
+  setTimeout(()=>{const el=document.getElementById('month-'+CURRENT_MONTH_KEY);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},50);
 }
-
-initDropdowns();
-renderCalendar();
+initDD();renderCalendar();
 </script>
 </body>
 </html>
