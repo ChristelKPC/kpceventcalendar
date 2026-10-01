@@ -1,0 +1,373 @@
+{
+  "genereLe": "2026-10-01T09:20:42.466Z",
+  "aujourdhui": "2026-10-01",
+  "anneeEnCours": 2026,
+  "anneeSuivante": 2027,
+  "anneePrecedente": {
+    "annee": 2025,
+    "total": null
+  },
+  "events": [
+    {
+      "id": "30381c5bb542805e8494f10f3114e0c4",
+      "nom": "INFORMATICA - Webinar Informatica data Observability",
+      "date": "2026-02-19",
+      "format": "Webinaire",
+      "editeurs": [
+        "Informatica"
+      ],
+      "codeSF": "2026-KPC-WEBINAR-INORMATICA-0219",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "2fc81c5bb54280fca1fee619a45f0057",
+      "nom": "Webinar CPM Express Onestream",
+      "date": "2026-03-12",
+      "format": "Webinaire",
+      "editeurs": [
+        "Onestream"
+      ],
+      "codeSF": "2026-KPC-WEBINAIRE-ONESTREAM-0312",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "2fb81c5bb54280e5a509f07ab1616423",
+      "nom": "Dataquitaine 2026",
+      "date": "2026-03-19",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "2fc81c5bb5428032ab36dbfdff2dff1e",
+      "nom": "Event SAP / SNOW / KPC (SAP CONNECT 19/03)",
+      "date": "2026-03-19",
+      "format": "Présentiel",
+      "editeurs": [
+        "Snowflake",
+        "SAP"
+      ],
+      "codeSF": "2026-KPC-SAP-CONNECT-0319",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "2f481c5bb54280659448d4721587a8bf",
+      "nom": "SNOWFLAKE - D4B PARIS",
+      "date": "2026-04-14",
+      "format": "Présentiel",
+      "editeurs": [
+        "Snowflake"
+      ],
+      "codeSF": "2026-KPC-D4B-SNOWFLAKE-0414",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30481c5bb54280cbb0e4d9a387156c16",
+      "nom": "Event SAP / SNOW Lyon",
+      "date": "2026-04-23",
+      "format": "Présentiel",
+      "editeurs": [
+        "Snowflake",
+        "SAP"
+      ],
+      "codeSF": "2026-KPC-SAP-SNOWFLAKE-LYON-0423",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30481c5bb542804f8e2ef2381e796368",
+      "nom": "DBT - Webinar Datagouvernance",
+      "date": "2026-05-26",
+      "format": "Webinaire",
+      "editeurs": [
+        "DBT"
+      ],
+      "codeSF": "KPC-DBT-DATAGOUV-260526",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "2f481c5bb54280feb904db7de72d419f",
+      "nom": "Cultive Ta data Montpellier",
+      "date": "2026-05-28",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "2026-KPC-CTD-260528",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30681c5bb542808885cdefbe0a5251aa",
+      "nom": "SNOWFLAKE - SUMMIT San Francisco",
+      "date": "2026-06-01",
+      "format": "Présentiel",
+      "editeurs": [
+        "Snowflake"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30481c5bb542804d849ce11afc2f91cd",
+      "nom": "OS WORLD TOUR PARIS",
+      "date": "2026-06-02",
+      "format": "Présentiel",
+      "editeurs": [
+        "Onestream"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "35681c5bb542808f97cfe6c6284bca29",
+      "nom": "Kshuttle Connect 2026 - Paris",
+      "date": "2026-06-04",
+      "format": "Présentiel",
+      "editeurs": [
+        "kshuttle"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "31881c5bb5428020806ac1280d8f67f9",
+      "nom": "DATAGALAXY - Event atelier Atelier Jeux de carte - Paris  + Rex BEL",
+      "date": "2026-06-09",
+      "format": "Présentiel",
+      "editeurs": [
+        "Datagalaxy"
+      ],
+      "codeSF": "2026-KPC-ATG-PARIS-0409",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "36681c5bb54280188f6fdfd6707753a1",
+      "nom": "DATAGALAXY - Sumit - Paris",
+      "date": "2026-06-11",
+      "format": "Présentiel",
+      "editeurs": [
+        "Datagalaxy"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30681c5bb542806e9022eefa18fc92c8",
+      "nom": "DATAGALAXY :  webinar #1 - Produit Portfolio",
+      "date": "2026-06-16",
+      "format": "Webinaire",
+      "editeurs": [
+        "Datagalaxy"
+      ],
+      "codeSF": "2026-KPC-DATAGALAXY-WEBINAR-PORTEFOLIO-0616",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "31881c5bb54280afa98fc48b0542d720",
+      "nom": "DATAGALAXY -  Event REX Apicil - Lyon",
+      "date": "2026-06-25",
+      "format": "Présentiel",
+      "editeurs": [
+        "Datagalaxy"
+      ],
+      "codeSF": "2026-DATAGALAXY-EVENT-REX-APCIL-0623",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30681c5bb542807282effca9006a1399",
+      "nom": "Republic Deauville",
+      "date": "2026-06-29",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "2026-KPC-REPUBLIK-DEAUVILLE-0629",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "37281c5bb54280e3816eca0dd30a33a2",
+      "nom": "SUG Lyon 01/07",
+      "date": "2026-07-01",
+      "format": "Présentiel",
+      "editeurs": [
+        "Snowflake"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "3ad81c5bb54280809857c278b56f69dc",
+      "nom": "Club Reussir Toulouse 08/09",
+      "date": "2026-09-08",
+      "format": "Présentiel",
+      "editeurs": [],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "30681c5bb54280d98b68f359e7bf47a1",
+      "nom": "SALON DE LA DATA NANTES + informatica",
+      "date": "2026-09-22",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC",
+        "Informatica"
+      ],
+      "codeSF": "2026-KPC-SALON-DATA-NANTES-0922",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "36e81c5bb54280bd8661fe620e1c51b5",
+      "nom": "SEMARCHY summit",
+      "date": "2026-09-24",
+      "format": "Présentiel",
+      "editeurs": [
+        "Semarchy"
+      ],
+      "codeSF": "2026-KPC-SEMARCHY-0924",
+      "dateWarning": false,
+      "statut": "Terminé"
+    },
+    {
+      "id": "37c81c5bb54280789036e43b263b50fd",
+      "nom": "Pigment Catalyst Paris",
+      "date": "2026-10-06",
+      "format": "Présentiel",
+      "editeurs": [
+        "Pigment"
+      ],
+      "codeSF": "2026-KPC-PIGMENT-CATALYSE-0906",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "33b81c5bb54280fa886dc48aa53d057b",
+      "nom": "Podcast Datagen datagouv + IA",
+      "date": "2026-10-12",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "2f081c5bb542809480c4de2322fc4660",
+      "nom": "SAP - Convention USF 26 - STRASBOURG - 14 & 15 octobre",
+      "date": "2026-10-14",
+      "format": "Présentiel",
+      "editeurs": [
+        "SAP"
+      ],
+      "codeSF": "2026-KPC-USF-STRASBOURG-1014",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "2f481c5bb542800985a1e5c0c32ff6d6",
+      "nom": "SNOWFLAKE - SWT -Paris",
+      "date": "2026-10-15",
+      "format": "Présentiel",
+      "editeurs": [
+        "Snowflake"
+      ],
+      "codeSF": "2026-KPC-SNOWFLAKE-SWTPARIS-1015",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "2f481c5bb5428085b3e7e4c26609e08f",
+      "nom": "SALESFORCE Diner vip - Lyon",
+      "date": "2026-11-03",
+      "format": "Présentiel",
+      "editeurs": [
+        "Salesforce"
+      ],
+      "codeSF": "2026-KPC-SALESFORCE-DINER-LYON-0810",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "30481c5bb5428018a37ef742f2c2477d",
+      "nom": "PARTNER AFTERWORKS - Paris - Date à confirmer",
+      "date": "2026-11-12",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "",
+      "dateWarning": true,
+      "statut": "Actif"
+    },
+    {
+      "id": "33c81c5bb542803d8287f900c656cb04",
+      "nom": "DATAGALAXY - Event Atelier Jeu Datagouv’ - TOULOUSE",
+      "date": "2026-11-19",
+      "format": "Présentiel",
+      "editeurs": [
+        "Datagalaxy"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "30481c5bb542808c802ec603f6ab7029",
+      "nom": "ADIRA LYON",
+      "date": "2026-12-01",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "3a081c5bb54280febf24f1a646548d98",
+      "nom": "Salon adopt IA Paris 3&4 dec",
+      "date": "2026-12-03",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "2026-KPC-EVENT-ARTEFACT-ADOPTAI-1203",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "3df81c5bb542804a9288effb0f22651f",
+      "nom": "Salon IA Montpellier 9 dec 2026",
+      "date": "2026-12-09",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "2026-KPC-SALON-IA-MONTPELLIER-1209",
+      "dateWarning": false,
+      "statut": "Actif"
+    }
+  ]
+}
