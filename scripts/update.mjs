@@ -53,7 +53,8 @@ function ajouterMois(iso, n) {
 }
 const fmt = (iso, opts) => new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC', ...opts }).format(new Date(iso + 'T00:00:00Z'));
 const dateCourte = (iso) => fmt(iso, { weekday: 'short', day: 'numeric', month: 'short' });
-const dateLongue = (iso) => fmt(iso, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+const premier = (s) => s.replace(/(^|\s)1 (?=\p{L})/u, '$11er ');
+const dateLongue = (iso) => premier(fmt(iso, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }));
 const moisAnnee = (iso) => { const s = fmt(iso, { month: 'long', year: 'numeric' }); return s[0].toUpperCase() + s.slice(1); };
 
 function estJourEnvoi(iso) {
@@ -243,7 +244,7 @@ function carteRecap(events, diff, today) {
       ...diff.annules.map((e) => `Annulé : **${e.nom}** — ${dateCourte(e.date)}`),
     ];
     if (lignes.length) {
-      body.push(titreSection(`Nouveautés depuis le ${fmt(diff.depuis, { day: 'numeric', month: 'long' })}`));
+      body.push(titreSection(`Nouveautés depuis le ${premier(fmt(diff.depuis, { day: 'numeric', month: 'long' }))}`));
       lignes.forEach((l) => body.push(tb('• ' + l, { spacing: 'Small' })));
     }
   }
@@ -316,6 +317,7 @@ async function main() {
   const today = env('DATE_FORCEE') || aujourdhuiParis();
   const annee = Number(today.slice(0, 4));
   if (!env('NOTION_TOKEN')) throw new Error('Secret NOTION_TOKEN manquant');
+  await fs.mkdir('state', { recursive: true });
 
   const problemes = [];
   const tous = [];
