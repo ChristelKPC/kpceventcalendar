@@ -25,11 +25,11 @@ jobs:
   calendrier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Lire Notion, mettre à jour, envoyer
         run: node scripts/update.mjs
