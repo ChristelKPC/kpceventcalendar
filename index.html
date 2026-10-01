@@ -132,7 +132,7 @@ const NOW=new Date();
 const TODAY_ISO=NOW.getFullYear()+'-'+pad(NOW.getMonth()+1)+'-'+pad(NOW.getDate());
 const CURRENT_MONTH_KEY=TODAY_ISO.substring(0,7);
 const YEAR=NOW.getFullYear();
-const MASQUES=['Sans éditeur','?'];
+const MASQUES=['Sans éditeur','?','KPC'];
 let EVENTS=[];
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function mKey(d){return d.substring(0,7);}
