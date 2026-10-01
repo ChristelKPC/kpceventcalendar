@@ -210,7 +210,8 @@ function differences(avant, maintenant, today) {
 // ─────────────────────────────────────────────────────────────
 // Messages Teams (cartes adaptatives)
 // ─────────────────────────────────────────────────────────────
-const editeursTexte = (e) => e.editeurs.filter((n) => n !== '?' && norm(n) !== 'sans editeur').join(' / ');
+const EDITEURS_MASQUES = ['?', 'sans editeur', 'kpc']; // « KPC » = pas d'éditeur partenaire
+const editeursTexte = (e) => e.editeurs.filter((n) => !EDITEURS_MASQUES.includes(norm(n))).join(' / ');
 function ligneEvent(e) {
   const morceaux = [dateCourte(e.date), `**${e.nom}**`, editeursTexte(e), e.format].filter(Boolean);
   return '• ' + morceaux.join(' — ') + (e.dateWarning ? ' — ⚠ À confirmer' : '');
