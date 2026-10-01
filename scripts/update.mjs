@@ -298,13 +298,7 @@ async function poster(urlEnv, payload) {
   if (!res.ok) throw new Error(`Envoi Teams (${urlEnv}) refusé : ${res.status} ${await res.text()}`);
 }
 
-// Aperçu lisible dans le résumé GitHub (mode test)
-function apercu(payload) {
-  const c = payload.attachments[0].content;
-  const lignes = c.body.map((b) => (b.weight === 'Bolder' ? `\n**${b.text}**` : b.text));
-  if (c.actions?.length) lignes.push(`\n[${c.actions[0].title}](${c.actions[0].url})`);
-  return lignes.join('\n');
-}
+// Journal GitHub : dépôt public, donc uniquement des chiffres, jamais de noms d'events
 async function resume(texte) {
   console.log(texte);
   if (env('GITHUB_STEP_SUMMARY')) await fs.appendFile(env('GITHUB_STEP_SUMMARY'), texte + '\n\n');
@@ -315,6 +309,7 @@ async function resume(texte) {
 // ─────────────────────────────────────────────────────────────
 async function main() {
   const mode = env('MODE') || 'test'; // auto | test | envoi-sales | envoi-alerte
+  // test : aperçu du récap (et de l'alerte) envoyé uniquement dans la conversation privée « Flux de travail »
   const today = env('DATE_FORCEE') || aujourdhuiParis();
   const annee = Number(today.slice(0, 4));
   if (!env('NOTION_TOKEN')) throw new Error('Secret NOTION_TOKEN manquant');
@@ -356,9 +351,17 @@ async function main() {
   const alerte = lignesAlerte(fenetre, problemes, today);
   const envoyerAlerte = alerte.length > 0 && (mode === 'auto' || mode === 'envoi-alerte');
 
-  await resume(`## Données\n${fenetre.length} events dans le calendrier (${annee}–${annee + 1}).`);
-  await resume(`## Récap sales — ${envoyerSales ? 'ENVOYÉ' : 'aperçu, non envoyé'}\n${apercu(recap)}`);
-  await resume(`## Alerte personnelle — ${alerte.length ? (envoyerAlerte ? 'ENVOYÉE' : 'aperçu, non envoyée') : 'rien à signaler'}\n${alerte.join('\n')}`);
+  const nbNouv = diff ? diff.nouveaux.length + diff.dateModifiee.length + diff.dateConfirmee.length + diff.annules.length : 0;
+  await resume(`Events dans le calendrier : ${fenetre.length}. Nouveautés : ${nbNouv}. Points à corriger : ${alerte.length}.`);
+  await resume(`Récap sales : ${envoyerSales ? 'envoyé' : (mode === 'test' ? 'aperçu envoyé dans « Flux de travail »' : 'non envoyé (pas un 1er ou 3e lundi)')}.`);
+  await resume(`Alerte : ${alerte.length ? (envoyerAlerte || mode === 'test' ? 'envoyée dans « Flux de travail »' : 'non envoyée') : 'rien à signaler'}.`);
+
+  if (mode === 'test') {
+    const titre = recap.attachments[0].content.body[0];
+    titre.text = 'APERÇU — ' + titre.text;
+    await poster('TEAMS_ALERT_WEBHOOK_URL', recap);
+    if (alerte.length) await poster('TEAMS_ALERT_WEBHOOK_URL', carteAlerte(alerte));
+  }
 
   if (envoyerSales) {
     await poster('TEAMS_WEBHOOK_URL', recap);
