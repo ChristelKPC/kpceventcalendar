@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'test = aperçu sans rien poster · envoi-sales = poste le récap maintenant · envoi-alerte = poste l''alerte maintenant'
+        description: 'test = aperçu envoyé à toi seule dans « Flux de travail » · envoi-sales = poste le récap aux sales maintenant · envoi-alerte = poste l''alerte maintenant'
         type: choice
         default: test
         options: [test, envoi-sales, envoi-alerte]
