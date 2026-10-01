@@ -100,7 +100,7 @@ Les valeurs ne sont jamais écrites dans un document ou une conversation. Elles 
 
 **Tester ou envoyer à la demande**
 GitHub → Actions → « Calendrier events — mise à jour et récap » → Run workflow, puis choisir le mode :
-- `test` : met à jour le calendrier, affiche l'aperçu du récap et de l'alerte dans le résumé de l'exécution, ne poste rien ;
+- `test` : met à jour le calendrier et envoie l'aperçu du récap (et l'alerte s'il y a lieu) uniquement dans ta conversation privée « Flux de travail » ; rien n'est posté aux sales ;
 - `envoi-sales` : poste le récap aux sales immédiatement ;
 - `envoi-alerte` : poste l'alerte immédiatement (si quelque chose est à signaler).
 
@@ -118,6 +118,11 @@ Lire le message, puis GitHub → Actions → dernière exécution en rouge → �
 **Modifier un fichier du dépôt**
 Ouvrir le dossier concerné → Add file → Upload files → déposer le fichier (il remplace l'ancien du même nom) → Commit changes. Préférer l'upload au copier-coller.
 
+**Confidentialité (dépôt public)**
+- Le calendrier n'est pas indexé par les moteurs de recherche (balise `noindex`), mais reste accessible à toute personne qui a le lien.
+- Les journaux GitHub n'affichent que des chiffres, jamais de noms d'events.
+- Le dépôt, son historique et `data.json` restent publics. Piste à l'étude : hébergement interne avec connexion KPC obligatoire et dépôt privé.
+
 **Si le site affiche 404**
 Settings → Pages → vérifier que la branche `main` est sélectionnée → Save.
 
@@ -127,4 +132,4 @@ Settings → Pages → vérifier que la branche `main` est sélectionnée → Sa
 |---|---|
 | Juin 2026 | Création du calendrier, synchronisation Notion, codes SF depuis la propriété dédiée |
 | Juin 2026 | Ajout Semarchy, Oracle Rex Compass, Salon Data Nantes, Pigment Catalyst, SUG Lyon |
-| Octobre 2026 | Automatisation complète : mise à jour hebdomadaire depuis Notion (GitHub Actions), récap Teams aux sales les 1er et 3e lundis, alerte personnelle. Éditeurs lus dans Notion (map supprimé, KPC masqué). Statut selon la date, badge ⚠ « À confirmer », calendrier sur deux années, jauge et récap sur l'année en cours. |
+| Octobre 2026 | Automatisation complète : mise à jour hebdomadaire depuis Notion (GitHub Actions), récap Teams aux sales les 1er et 3e lundis, alerte personnelle. Éditeurs lus dans Notion (map supprimé, KPC masqué). Statut selon la date, badge ⚠ « À confirmer », calendrier sur deux années, jauge et récap sur l'année en cours. Page non indexée, journaux GitHub sans noms d'events. |
