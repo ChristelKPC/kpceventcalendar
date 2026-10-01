@@ -1,1 +1,56 @@
+name: Calendrier events — mise à jour et récap
 
+on:
+  schedule:
+    # Chaque lundi à 6h UTC (8h l'été, 7h l'hiver à Paris).
+    # Le script ne poste aux sales que les 1er et 3e lundis du mois.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'test = aperçu sans rien poster · envoi-sales = poste le récap maintenant · envoi-alerte = poste l''alerte maintenant'
+        type: choice
+        default: test
+        options: [test, envoi-sales, envoi-alerte]
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: calendrier
+  cancel-in-progress: false
+
+jobs:
+  calendrier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Lire Notion, mettre à jour, envoyer
+        run: node scripts/update.mjs
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          TEAMS_ALERT_WEBHOOK_URL: ${{ secrets.TEAMS_ALERT_WEBHOOK_URL }}
+          MODE: ${{ github.event_name == 'schedule' && 'auto' || inputs.mode }}
+
+      - name: Enregistrer les données dans le dépôt
+        run: |
+          git config user.name "calendrier-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json state/
+          git diff --cached --quiet || git commit -m "Calendrier : mise à jour du $(date +%F)"
+          git push
+
+      - name: Republier le site
+        continue-on-error: true
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository }}/pages/builds
