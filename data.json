@@ -1,6 +1,6 @@
 {
-  "genereLe": "2026-10-01T09:35:50.254Z",
-  "aujourdhui": "2026-10-01",
+  "genereLe": "2026-10-05T09:03:17.665Z",
+  "aujourdhui": "2026-10-05",
   "anneeEnCours": 2026,
   "anneeSuivante": 2027,
   "anneePrecedente": {
@@ -310,18 +310,6 @@
       "statut": "Actif"
     },
     {
-      "id": "30481c5bb5428018a37ef742f2c2477d",
-      "nom": "PARTNER AFTERWORKS - Paris - Date à confirmer",
-      "date": "2026-11-12",
-      "format": "Présentiel",
-      "editeurs": [
-        "KPC"
-      ],
-      "codeSF": "",
-      "dateWarning": true,
-      "statut": "Actif"
-    },
-    {
       "id": "33c81c5bb542803d8287f900c656cb04",
       "nom": "DATAGALAXY - Event Atelier Jeu Datagouv’ - TOULOUSE",
       "date": "2026-11-19",
@@ -331,6 +319,18 @@
       ],
       "codeSF": "",
       "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "30481c5bb5428018a37ef742f2c2477d",
+      "nom": "PARTNER AFTERWORKS - Paris - Date à confirmer",
+      "date": "2026-11-19",
+      "format": "Présentiel",
+      "editeurs": [
+        "KPC"
+      ],
+      "codeSF": "",
+      "dateWarning": true,
       "statut": "Actif"
     },
     {
