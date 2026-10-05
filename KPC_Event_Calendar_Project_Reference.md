@@ -25,7 +25,7 @@ Contenu du dépôt :
 
 ## 2. Fonctionnement automatique
 
-- **Chaque lundi vers 8h** (7h en hiver) : lecture de Notion, mise à jour de `data.json`, le calendrier en ligne suit.
+- **Chaque lundi vers 7h30** (6h30 en hiver), avec un second passage de secours vers 10h (9h en hiver) : lecture de Notion, mise à jour de `data.json`, le calendrier en ligne suit. GitHub peut retarder une tâche planifiée de quelques dizaines de minutes ; le récap n'est jamais envoyé deux fois le même jour.
 - **1er et 3e lundis du mois** : envoi du récap dans la conversation Teams « Sales & Marketing ».
 - **Chaque lundi, si besoin** : alerte personnelle dans la conversation Teams « Flux de travail » quand quelque chose est à corriger dans Notion :
   - date dépassée toujours « à confirmer » ;
