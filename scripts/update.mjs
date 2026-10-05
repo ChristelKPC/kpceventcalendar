@@ -345,15 +345,18 @@ async function main() {
   const dernier = await lireJson('state/dernier-envoi.json', null);
   const diff = differences(dernier, fenetre, today);
   const recap = carteRecap(fenetre, diff, today);
-  const envoyerSales = mode === 'envoi-sales' || (mode === 'auto' && estJourEnvoi(today));
+  // En automatique, un seul envoi par jour même si GitHub lance plusieurs passages
+  const dejaEnvoye = dernier?.date === today;
+  const envoyerSales = mode === 'envoi-sales' || (mode === 'auto' && estJourEnvoi(today) && !dejaEnvoye);
 
   // Alerte personnelle
   const alerte = lignesAlerte(fenetre, problemes, today);
-  const envoyerAlerte = alerte.length > 0 && (mode === 'auto' || mode === 'envoi-alerte');
+  const derniereAlerte = await lireJson('state/derniere-alerte.json', null);
+  const envoyerAlerte = alerte.length > 0 && (mode === 'envoi-alerte' || (mode === 'auto' && derniereAlerte?.date !== today));
 
   const nbNouv = diff ? diff.nouveaux.length + diff.dateModifiee.length + diff.dateConfirmee.length + diff.annules.length : 0;
   await resume(`Events dans le calendrier : ${fenetre.length}. Nouveautés : ${nbNouv}. Points à corriger : ${alerte.length}.`);
-  await resume(`Récap sales : ${envoyerSales ? 'envoyé' : (mode === 'test' ? 'aperçu envoyé dans « Flux de travail »' : 'non envoyé (pas un 1er ou 3e lundi)')}.`);
+  await resume(`Récap sales : ${envoyerSales ? 'envoyé' : (mode === 'test' ? 'aperçu envoyé dans « Flux de travail »' : (dejaEnvoye ? 'déjà envoyé aujourd\'hui' : 'non envoyé (pas un 1er ou 3e lundi)'))}.`);
   await resume(`Alerte : ${alerte.length ? (envoyerAlerte || mode === 'test' ? 'envoyée dans « Flux de travail »' : 'non envoyée') : 'rien à signaler'}.`);
 
   if (mode === 'test') {
@@ -367,7 +370,10 @@ async function main() {
     await poster('TEAMS_WEBHOOK_URL', recap);
     await ecrireJson('state/dernier-envoi.json', { date: today, events: fenetre.map(({ id, nom, date, dateWarning }) => ({ id, nom, date, dateWarning })) });
   }
-  if (envoyerAlerte) await poster('TEAMS_ALERT_WEBHOOK_URL', carteAlerte(alerte));
+  if (envoyerAlerte) {
+    await poster('TEAMS_ALERT_WEBHOOK_URL', carteAlerte(alerte));
+    await ecrireJson('state/derniere-alerte.json', { date: today });
+  }
 
   await ecrireJson('state/dernier-passage.json', { date: new Date().toISOString(), mode });
 }
