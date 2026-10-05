@@ -2,9 +2,11 @@ name: Calendrier events — mise à jour et récap
 
 on:
   schedule:
-    # Chaque lundi à 6h UTC (8h l'été, 7h l'hiver à Paris).
-    # Le script ne poste aux sales que les 1er et 3e lundis du mois.
-    - cron: '0 6 * * 1'
+    # Chaque lundi, deux passages (GitHub retarde ou saute parfois les tâches planifiées) :
+    # 5h23 UTC (7h23 l'été, 6h23 l'hiver à Paris), puis 7h53 UTC en secours.
+    # Le récap n'est envoyé qu'une fois par jour, et seulement les 1er et 3e lundis du mois.
+    - cron: '23 5 * * 1'
+    - cron: '53 7 * * 1'
   workflow_dispatch:
     inputs:
       mode:
