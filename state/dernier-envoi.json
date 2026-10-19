@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-19",
   "events": [
     {
       "id": "30381c5bb542805e8494f10f3114e0c4",
@@ -128,12 +128,6 @@
       "dateWarning": false
     },
     {
-      "id": "33b81c5bb54280fa886dc48aa53d057b",
-      "nom": "Podcast Datagen datagouv + IA",
-      "date": "2026-10-12",
-      "dateWarning": false
-    },
-    {
       "id": "2f081c5bb542809480c4de2322fc4660",
       "nom": "SAP - Convention USF 26 - STRASBOURG - 14 & 15 octobre",
       "date": "2026-10-14",
@@ -143,6 +137,12 @@
       "id": "2f481c5bb542800985a1e5c0c32ff6d6",
       "nom": "SNOWFLAKE - SWT -Paris",
       "date": "2026-10-15",
+      "dateWarning": false
+    },
+    {
+      "id": "33b81c5bb54280fa886dc48aa53d057b",
+      "nom": "Podcast Datagen datagouv + IA",
+      "date": "2026-10-16",
       "dateWarning": false
     },
     {
@@ -159,9 +159,9 @@
     },
     {
       "id": "30481c5bb5428018a37ef742f2c2477d",
-      "nom": "PARTNER AFTERWORKS - Paris - Date à confirmer",
+      "nom": "PARTNER AFTERWORKS - Paris",
       "date": "2026-11-19",
-      "dateWarning": true
+      "dateWarning": false
     },
     {
       "id": "30481c5bb542808c802ec603f6ab7029",
