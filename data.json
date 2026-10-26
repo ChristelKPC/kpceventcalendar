@@ -1,6 +1,6 @@
 {
-  "genereLe": "2026-10-19T15:01:01.572Z",
-  "aujourdhui": "2026-10-19",
+  "genereLe": "2026-10-26T11:15:56.442Z",
+  "aujourdhui": "2026-10-26",
   "anneeEnCours": 2026,
   "anneeSuivante": 2027,
   "anneePrecedente": {
@@ -317,7 +317,7 @@
       "editeurs": [
         "Datagalaxy"
       ],
-      "codeSF": "",
+      "codeSF": "2026-KPC-DATAGALAXY-ATG-TOULOUSE-1119",
       "dateWarning": false,
       "statut": "Actif"
     },
