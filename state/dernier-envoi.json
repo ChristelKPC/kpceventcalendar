@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-19",
+  "date": "2026-11-02",
   "events": [
     {
       "id": "30381c5bb542805e8494f10f3114e0c4",
@@ -179,6 +179,12 @@
       "id": "3df81c5bb542804a9288effb0f22651f",
       "nom": "Salon IA Montpellier 9 dec 2026",
       "date": "2026-12-09",
+      "dateWarning": false
+    },
+    {
+      "id": "30681c5bb54280809684da1f1f20016f",
+      "nom": "INFORMATICA WORLD TOUR  / dreamforce",
+      "date": "2026-12-10",
       "dateWarning": false
     }
   ]

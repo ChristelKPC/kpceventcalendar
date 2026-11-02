@@ -1,6 +1,6 @@
 {
-  "genereLe": "2026-10-26T14:35:37.472Z",
-  "aujourdhui": "2026-10-26",
+  "genereLe": "2026-11-02T13:38:50.911Z",
+  "aujourdhui": "2026-11-02",
   "anneeEnCours": 2026,
   "anneeSuivante": 2027,
   "anneePrecedente": {
@@ -366,6 +366,18 @@
         "KPC"
       ],
       "codeSF": "2026-KPC-SALON-IA-MONTPELLIER-1209",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "30681c5bb54280809684da1f1f20016f",
+      "nom": "INFORMATICA WORLD TOUR  / dreamforce",
+      "date": "2026-12-10",
+      "format": "Présentiel",
+      "editeurs": [
+        "Informatica"
+      ],
+      "codeSF": "2026-KPC-INFORMATICA-WORLD-TOUR-1210",
       "dateWarning": false,
       "statut": "Actif"
     }
