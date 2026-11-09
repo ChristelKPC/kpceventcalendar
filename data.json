@@ -1,6 +1,6 @@
 {
-  "genereLe": "2026-11-02T17:28:17.717Z",
-  "aujourdhui": "2026-11-02",
+  "genereLe": "2026-11-09T14:01:46.647Z",
+  "aujourdhui": "2026-11-09",
   "anneeEnCours": 2026,
   "anneeSuivante": 2027,
   "anneePrecedente": {
@@ -286,18 +286,6 @@
       "statut": "Terminé"
     },
     {
-      "id": "33b81c5bb54280fa886dc48aa53d057b",
-      "nom": "Podcast Datagen datagouv + IA",
-      "date": "2026-10-16",
-      "format": "Présentiel",
-      "editeurs": [
-        "KPC"
-      ],
-      "codeSF": "",
-      "dateWarning": false,
-      "statut": "Terminé"
-    },
-    {
       "id": "33c81c5bb542803d8287f900c656cb04",
       "nom": "DATAGALAXY - Event Atelier Jeu Datagouv’ - TOULOUSE",
       "date": "2026-11-19",
@@ -358,14 +346,24 @@
       "statut": "Actif"
     },
     {
-      "id": "30681c5bb54280809684da1f1f20016f",
-      "nom": "INFORMATICA WORLD TOUR  / dreamforce",
-      "date": "2026-12-10",
+      "id": "33b81c5bb54280fa886dc48aa53d057b",
+      "nom": "Podcast Datagen datagouv + IA",
+      "date": "2026-12-11",
       "format": "Présentiel",
       "editeurs": [
-        "Informatica"
+        "KPC"
       ],
-      "codeSF": "2026-KPC-INFORMATICA-WORLD-TOUR-1210",
+      "codeSF": "",
+      "dateWarning": false,
+      "statut": "Actif"
+    },
+    {
+      "id": "41081c5bb54280998509c29f976d1703",
+      "nom": "Préparation KDD",
+      "date": "2026-12-31",
+      "format": "Présentiel",
+      "editeurs": [],
+      "codeSF": "",
       "dateWarning": false,
       "statut": "Actif"
     }
